@@ -186,7 +186,7 @@ export default function Home() {
             <Spinner className="py-20" />
           ) : (
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {serviceData?.services.slice(0, 6).map((s) => (
+              {(serviceData?.services || []).slice(0, 6).map((s) => (
                 <ServiceCard key={s._id} service={s} />
               ))}
             </div>
@@ -280,7 +280,7 @@ export default function Home() {
             <Spinner className="py-20" />
           ) : (
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
-              {productData?.products.slice(0, 8).map((p) => (
+              {(productData?.products || []).slice(0, 8).map((p) => (
                 <ProductCard key={p._id} product={p} />
               ))}
             </div>
