@@ -149,7 +149,7 @@ export default function PromotionDetail() {
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">{t('servicesPage.availableSlots')}</label>
                 <div className="grid grid-cols-4 gap-2">
-                  {slotsData?.slots.map((slot) => (
+                  {(slotsData?.slots || []).map((slot) => (
                     <button
                       key={slot.time}
                       disabled={!slot.available}

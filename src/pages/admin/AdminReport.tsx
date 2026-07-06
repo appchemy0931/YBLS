@@ -134,7 +134,7 @@ function buildPDFHTML(data: ReportData): string {
   const genDate = new Date().toLocaleString();
   const rangeStr = data.range ? `${data.range.from || '...'} to ${data.range.to || '...'}` : 'All time';
 
-  const serviceRows = data.completedServiceBookings.map((b) => `
+  const serviceRows = (data.completedServiceBookings || []).map((b) => `
     <tr>
       <td>${esc(getCustomerField(b.userId, 'name'))}</td>
       <td>${esc(b.serviceId && typeof b.serviceId === 'object' ? b.serviceId.name : b.serviceName)}</td>
@@ -144,7 +144,7 @@ function buildPDFHTML(data: ReportData): string {
       <td style="text-align:right">${esc(fmtDate(b.createdAt))}</td>
     </tr>`).join('');
 
-  const promoRows = data.completedPromotionBookings.map((b) => `
+  const promoRows = (data.completedPromotionBookings || []).map((b) => `
     <tr>
       <td>${esc(getCustomerField(b.userId, 'name'))}</td>
       <td>${esc(b.promotionId && typeof b.promotionId === 'object' ? b.promotionId.title : b.serviceName)}</td>
@@ -154,7 +154,7 @@ function buildPDFHTML(data: ReportData): string {
       <td style="text-align:right">${esc(fmtDate(b.createdAt))}</td>
     </tr>`).join('');
 
-  const orderRows = data.paidOrders.map((o) => {
+  const orderRows = (data.paidOrders || []).map((o) => {
     const items = (o.items || []).map((i) => `${esc(i.name)} x${i.qty}`).join('<br>');
     return `
     <tr>
@@ -167,7 +167,7 @@ function buildPDFHTML(data: ReportData): string {
     </tr>`;
   }).join('');
 
-  const rankingRows = data.rankingPurchases.map((r) => {
+  const rankingRows = (data.rankingPurchases || []).map((r) => {
     const stars = '★'.repeat(r.tier) + '☆'.repeat(Math.max(0, 5 - r.tier));
     const reviewer = typeof r.reviewedBy === 'object' && r.reviewedBy ? r.reviewedBy.name : '-';
     return `
@@ -452,10 +452,10 @@ export default function AdminReport() {
           <SectionTable
             title="Completed Service Bookings"
             icon={CheckCircle}
-            count={data.completedServiceBookings.length}
-            revenue={fmtMoney(data.summary.serviceRevenue)}
+            count={(data.completedServiceBookings || []).length}
+            revenue={fmtMoney(data.summary?.serviceRevenue)}
           >
-            {data.completedServiceBookings.length === 0 ? (
+            {(data.completedServiceBookings || []).length === 0 ? (
               <div className="p-6 text-center text-sm text-gray-400">No completed service bookings.</div>
             ) : (
               <table className="w-full text-sm">
@@ -470,7 +470,7 @@ export default function AdminReport() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
-                  {data.completedServiceBookings.map((b) => (
+                  {(data.completedServiceBookings || []).map((b) => (
                     <tr key={b._id} className="hover:bg-gray-50">
                       <td className="px-4 py-3">
                         <p className="font-medium text-gray-800">{getCustomerField(b.userId, 'name')}</p>
@@ -501,10 +501,10 @@ export default function AdminReport() {
           <SectionTable
             title="Completed Promotion Bookings"
             icon={Tag}
-            count={data.completedPromotionBookings.length}
-            revenue={fmtMoney(data.summary.promotionRevenue)}
+            count={(data.completedPromotionBookings || []).length}
+            revenue={fmtMoney(data.summary?.promotionRevenue)}
           >
-            {data.completedPromotionBookings.length === 0 ? (
+            {(data.completedPromotionBookings || []).length === 0 ? (
               <div className="p-6 text-center text-sm text-gray-400">No completed promotion bookings.</div>
             ) : (
               <table className="w-full text-sm">
@@ -519,7 +519,7 @@ export default function AdminReport() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
-                  {data.completedPromotionBookings.map((b) => (
+                  {(data.completedPromotionBookings || []).map((b) => (
                     <tr key={b._id} className="hover:bg-gray-50">
                       <td className="px-4 py-3">
                         <p className="font-medium text-gray-800">{getCustomerField(b.userId, 'name')}</p>
@@ -552,10 +552,10 @@ export default function AdminReport() {
           <SectionTable
             title="Paid Orders"
             icon={ShoppingBag}
-            count={data.paidOrders.length}
-            revenue={fmtMoney(data.summary.orderRevenue)}
+            count={(data.paidOrders || []).length}
+            revenue={fmtMoney(data.summary?.orderRevenue)}
           >
-            {data.paidOrders.length === 0 ? (
+            {(data.paidOrders || []).length === 0 ? (
               <div className="p-6 text-center text-sm text-gray-400">No paid orders.</div>
             ) : (
               <table className="w-full text-sm">
@@ -571,7 +571,7 @@ export default function AdminReport() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
-                  {data.paidOrders.map((o) => (
+                  {(data.paidOrders || []).map((o) => (
                     <tr key={o._id} className="hover:bg-gray-50">
                       <td className="px-4 py-3 font-mono text-xs text-gray-500">#{o._id.slice(-8).toUpperCase()}</td>
                       <td className="px-4 py-3">
@@ -604,10 +604,10 @@ export default function AdminReport() {
           <SectionTable
             title="Ranking Purchases"
             icon={Crown}
-            count={data.rankingPurchases.length}
-            revenue={fmtMoney(data.summary.rankingRevenue)}
+            count={(data.rankingPurchases || []).length}
+            revenue={fmtMoney(data.summary?.rankingRevenue)}
           >
-            {data.rankingPurchases.length === 0 ? (
+            {(data.rankingPurchases || []).length === 0 ? (
               <div className="p-6 text-center text-sm text-gray-400">No approved ranking purchases.</div>
             ) : (
               <table className="w-full text-sm">
@@ -623,7 +623,7 @@ export default function AdminReport() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
-                  {data.rankingPurchases.map((r) => (
+                  {(data.rankingPurchases || []).map((r) => (
                     <tr key={r._id} className="hover:bg-gray-50">
                       <td className="px-4 py-3 font-mono text-xs text-gray-500">#{r._id.slice(-8).toUpperCase()}</td>
                       <td className="px-4 py-3">

@@ -50,13 +50,13 @@ export default function Dashboard() {
   const pendingTiers = new Set(myRequests.filter((r) => r.status === 'Pending').map((r) => r.tier));
 
   const stats = [
-    { icon: Calendar, label: t('dashboard.totalBookings'), value: bookingsData?.bookings.length || 0, color: 'from-rose-soft to-rose-medium', link: '/bookings' },
+    { icon: Calendar, label: t('dashboard.totalBookings'), value: (bookingsData?.bookings || []).length, color: 'from-rose-soft to-rose-medium', link: '/bookings' },
     { icon: Wallet, label: t('dashboard.walletBalance'), value: `RM${(walletData?.walletBalance ?? user?.walletBalance ?? 0).toFixed(2)}`, color: 'from-gold-100 to-gold-300', link: '/wallet' },
     { icon: Users, label: t('dashboard.referrals'), value: referralData?.stats.totalReferrals || 0, color: 'from-blush-100 to-blush-300', link: '/referral' },
     { icon: Gift, label: t('dashboard.bonusBalance'), value: `RM${(walletData?.walletBonus ?? user?.walletBonus ?? 0).toFixed(2)}`, color: 'from-rose-medium to-rose-deep', link: '/wallet' },
   ];
 
-  const upcomingBookings = bookingsData?.bookings.filter(
+  const upcomingBookings = (bookingsData?.bookings || []).filter(
     (b) => (b.status === 'Pending' || b.status === 'Confirmed') && new Date(b.bookingDate) >= new Date(new Date().toDateString())
   ) || [];
 

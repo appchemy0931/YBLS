@@ -124,11 +124,11 @@ export default function Referral() {
 
       <div className="bg-white rounded-2xl p-6 card-shadow mt-6">
         <h2 className="text-lg font-semibold text-gray-800 mb-4">{t('referral.referralHistory')}</h2>
-        {infoData?.referrals.length === 0 ? (
+        {(infoData?.referrals || []).length === 0 ? (
           <EmptyState icon={Users} title={t('referral.noReferrals')} message={t('referral.noReferralsMsg')} />
         ) : (
           <div className="space-y-2">
-            {infoData?.referrals.map((r) => (
+            {(infoData?.referrals || []).map((r) => (
               <div key={r._id} className="flex items-center gap-4 p-3 rounded-xl hover:bg-blush-50 transition-colors">
                 <div className="w-10 h-10 rounded-full bg-rose-soft flex items-center justify-center">
                   <Users size={18} className="text-rose-deep" />

@@ -48,7 +48,7 @@ export default function Products() {
           <Spinner className="py-20" />
         ) : (
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
-            {data?.products.map((p) => (
+            {(data?.products || []).map((p) => (
               <ProductCard key={p._id} product={p} />
             ))}
           </div>

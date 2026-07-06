@@ -111,7 +111,7 @@ export default function Services() {
           <Spinner className="py-20" />
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {data?.services.map((s) => (
+            {(data?.services || []).map((s) => (
               <ServiceCard key={s._id} service={s} />
             ))}
           </div>
