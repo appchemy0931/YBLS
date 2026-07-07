@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { orderAPI } from '../api';
 import { Spinner, Badge, EmptyState } from '../components/ui';
 import type { Order } from '../types';
+import { imageUrl } from '../utils/image';
 
 const statusVariant = (status: string) => {
   switch (status) {
@@ -56,7 +57,7 @@ export default function Orders() {
               <div className="space-y-2">
                 {order.items.map((item, i) => (
                   <div key={i} className="flex items-center gap-3">
-                    <img src={item.image} alt={item.name} className="w-12 h-12 rounded-lg object-cover" />
+                    <img src={imageUrl(item.image)} alt={item.name} className="w-12 h-12 rounded-lg object-cover" />
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-medium text-gray-800 truncate">{item.name}</p>
                       <p className="text-xs text-gray-400">{t('orders.qty', { qty: item.qty, price: item.price.toFixed(2) })}</p>

@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { productAPI } from '../api';
 import { useCart } from '../context/CartContext';
 import { Spinner, Button, Badge } from '../components/ui';
+import { imageUrl } from '../utils/image';
 
 export default function ProductDetail() {
   const { id } = useParams();
@@ -46,7 +47,7 @@ export default function ProductDetail() {
       <div className="grid lg:grid-cols-2 gap-8">
         <div className="rounded-2xl overflow-hidden card-shadow">
           <img
-            src={product?.image || 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=800'}
+            src={imageUrl(product?.image) || 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=800'}
             alt={product?.name}
             className="w-full h-96 object-cover"
           />

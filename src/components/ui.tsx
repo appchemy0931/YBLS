@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Star, Clock, Sparkles } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import type { Service, Product } from '../types';
+import { imageUrl } from '../utils/image';
 
 export function Button({
   children,
@@ -44,7 +45,7 @@ export function ServiceCard({ service }: { service: Service }) {
       <Link to={`/services/${service._id}`}>
         <div className="aspect-[4/3] overflow-hidden bg-blush-50">
           <img
-            src={service.image || 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600'}
+            src={imageUrl(service.image) || 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600'}
             alt={service.name}
             className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
           />
@@ -88,7 +89,7 @@ export function ProductCard({ product }: { product: Product }) {
       <Link to={`/products/${product._id}`}>
         <div className="aspect-square overflow-hidden bg-blush-50">
           <img
-            src={product.image || 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=600'}
+            src={imageUrl(product.image) || 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=600'}
             alt={product.name}
             className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
           />

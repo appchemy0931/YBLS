@@ -6,6 +6,7 @@ import { productAPI, uploadAPI } from '../../api';
 import { Spinner, Button, Badge, EmptyState } from '../../components/ui';
 import ConfirmModal from '../../components/ConfirmModal';
 import { sanitizeAmount, sanitizeInteger } from '../../utils/format';
+import { imageUrl } from '../../utils/image';
 import type { Product } from '../../types';
 
 const CATEGORIES = ['Skincare', 'Beauty Product', 'Treatment Product'];
@@ -99,7 +100,7 @@ export default function AdminProducts() {
                 <label className="text-xs text-gray-500">Image</label>
                 {form.image && (
                   <div className="relative mt-1 mb-2">
-                    <img src={form.image} alt="Preview" className="w-full h-32 object-cover rounded-lg" />
+                    <img src={imageUrl(form.image)} alt="Preview" className="w-full h-32 object-cover rounded-lg" />
                     <button type="button" onClick={() => setForm({ ...form, image: '' })} className="absolute top-1 right-1 w-6 h-6 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-black/70">
                       <X size={14} />
                     </button>
@@ -143,7 +144,7 @@ export default function AdminProducts() {
                 <tr key={p._id} className="hover:bg-gray-50">
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-3">
-                      <img src={p.image} alt={p.name} className="w-10 h-10 rounded-lg object-cover" />
+                      <img src={imageUrl(p.image)} alt={p.name} className="w-10 h-10 rounded-lg object-cover" />
                       <span className="font-medium text-gray-800">{p.name}</span>
                     </div>
                   </td>

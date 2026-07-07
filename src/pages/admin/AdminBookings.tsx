@@ -18,9 +18,11 @@ const statusVariant = (status: string) => {
 
 const formatDateTime = (date: string) => new Date(date).toLocaleString();
 
+import { imageUrl } from '../../utils/image';
+
 const bookingImage = (b: Booking): string => {
-  if (b.promotionId && typeof b.promotionId === 'object' && b.promotionId.image) return b.promotionId.image;
-  if (b.serviceId && typeof b.serviceId === 'object' && b.serviceId.image) return b.serviceId.image;
+  if (b.promotionId && typeof b.promotionId === 'object' && b.promotionId.image) return imageUrl(b.promotionId.image);
+  if (b.serviceId && typeof b.serviceId === 'object' && b.serviceId.image) return imageUrl(b.serviceId.image);
   return '';
 };
 

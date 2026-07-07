@@ -8,6 +8,7 @@ import { useAuth } from '../context/AuthContext';
 import { Spinner, Button, EmptyState } from '../components/ui';
 import ConfirmModal from '../components/ConfirmModal';
 import type { Coupon } from '../types';
+import { imageUrl } from '../utils/image';
 
 export default function Coupons() {
   const { user, updateUser } = useAuth();
@@ -51,7 +52,7 @@ export default function Coupons() {
             return (
               <div key={c._id} className="relative bg-linear-to-br from-rose-soft to-gold-50 rounded-2xl overflow-hidden card-shadow card-shadow-hover">
                 {c.image ? (
-                  <img src={c.image} alt={c.name} className="w-full h-34 rounded-2xl object-cover" />
+                  <img src={imageUrl(c.image)} alt={c.name} className="w-full h-34 rounded-2xl object-cover" />
                 ) : null}
                 <div className="absolute top-4 right-4">
                   {expired ? (

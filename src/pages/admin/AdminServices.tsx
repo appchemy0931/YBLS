@@ -6,6 +6,7 @@ import { serviceAPI, uploadAPI } from '../../api';
 import { Spinner, Button, Badge, EmptyState } from '../../components/ui';
 import ConfirmModal from '../../components/ConfirmModal';
 import { sanitizeAmount } from '../../utils/format';
+import { imageUrl } from '../../utils/image';
 import type { Service } from '../../types';
 
 const CATEGORIES = ['Facial Wash', 'Facial Treatment', 'Therapy Massage', 'Body Treatment', 'Skin Care', 'Beauty Package'];
@@ -104,7 +105,7 @@ export default function AdminServices() {
                 <label className="text-xs text-gray-500">Image</label>
                 {form.image && (
                   <div className="relative mt-1 mb-2">
-                    <img src={form.image} alt="Preview" className="w-full h-32 object-cover rounded-lg" />
+                    <img src={imageUrl(form.image)} alt="Preview" className="w-full h-32 object-cover rounded-lg" />
                     <button type="button" onClick={() => setForm({ ...form, image: '' })} className="absolute top-1 right-1 w-6 h-6 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-black/70">
                       <X size={14} />
                     </button>
@@ -134,7 +135,7 @@ export default function AdminServices() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {services.map((s) => (
             <div key={s._id} className="bg-white rounded-2xl overflow-hidden card-shadow">
-              <img src={s.image} alt={s.name} className="w-full h-32 object-cover" />
+              <img src={imageUrl(s.image)} alt={s.name} className="w-full h-32 object-cover" />
               <div className="p-4">
                 <div className="flex items-start justify-between gap-2 mb-2">
                   <h3 className="font-semibold text-gray-800">{s.name}</h3>

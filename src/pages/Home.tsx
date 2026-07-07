@@ -9,6 +9,7 @@ import heroImg from '../assets/hero.png';
 import fn3Img from '../assets/fn3.jpg';
 import dubaiImg from '../assets/Dubai.jpg';
 import snowmanImg from '../assets/cute-snowman.jpg';
+import { imageUrl } from '../utils/image';
 
 const heroSlides = [
   { image: heroImg },
@@ -105,7 +106,7 @@ export default function Home() {
                     className={`absolute inset-0 transition-opacity duration-1000 ease-out ${i === slide ? 'opacity-100' : 'opacity-0'}`}
                   >
                     <img
-                      src={s.image}
+                      src={imageUrl(s.image)}
                       alt={t('home.slides.' + i + '.title')}
                       className={`w-full h-full object-cover ${i === slide ? 'animate-ken-burns' : 'scale-105'}`}
                     />
@@ -221,7 +222,7 @@ export default function Home() {
                 return (
                   <div key={p._id} className="bg-white rounded-2xl overflow-hidden card-shadow card-shadow-hover animate-scale-in">
                     <div className="relative">
-                      <img src={p.image} alt={p.title} className="w-full h-44 object-cover" />
+                      <img src={imageUrl(p.image)} alt={p.title} className="w-full h-44 object-cover" />
                       {p.discount > 0 && (
                         <span className="absolute top-3 right-3 bg-rose-deep text-white text-sm font-bold px-3 py-1 rounded-full shadow-lg">
                           {p.discount}% {t('home.promotions.off')}

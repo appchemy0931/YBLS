@@ -6,6 +6,7 @@ import { orderAPI } from '../../api';
 import { Spinner, Button, Badge, EmptyState } from '../../components/ui';
 import ConfirmModal from '../../components/ConfirmModal';
 import { sanitizeAmount, sanitizeInteger } from '../../utils/format';
+import { imageUrl } from '../../utils/image';
 import type { Order, OrderItem } from '../../types';
 
 const formatDateTime = (date: string) => new Date(date).toLocaleString();
@@ -374,7 +375,7 @@ export default function AdminOrders() {
                     {editForm.items.map((item, idx) => (
                       <div key={idx} className="flex items-center gap-3 bg-gray-50 rounded-lg p-3">
                         <img
-                          src={item.image || 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=200'}
+                          src={imageUrl(item.image) || 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=200'}
                           alt={item.name}
                           className="w-12 h-12 rounded-lg object-cover bg-blush-50 shrink-0"
                         />
@@ -470,7 +471,7 @@ export default function AdminOrders() {
                     {selectedOrder.items.map((item, idx) => (
                       <div key={idx} className="flex items-center gap-3 bg-gray-50 rounded-lg p-3">
                         <img
-                          src={item.image || 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=200'}
+                          src={imageUrl(item.image) || 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=200'}
                           alt={item.name}
                           className="w-14 h-14 rounded-lg object-cover bg-blush-50 shrink-0"
                         />

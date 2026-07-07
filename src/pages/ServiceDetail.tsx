@@ -8,6 +8,7 @@ import { serviceAPI, bookingAPI } from '../api';
 import { useAuth } from '../context/AuthContext';
 import { Spinner, Button } from '../components/ui';
 import ConfirmModal from '../components/ConfirmModal';
+import { imageUrl } from '../utils/image';
 
 export default function ServiceDetail() {
   const { id } = useParams();
@@ -105,7 +106,7 @@ export default function ServiceDetail() {
       <div className="grid lg:grid-cols-2 gap-8">
         <div className="rounded-2xl overflow-hidden card-shadow">
           <img
-            src={service?.image || 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=800'}
+            src={imageUrl(service?.image) || 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=800'}
             alt={service?.name}
             className="w-full h-80 lg:h-full object-cover"
           />

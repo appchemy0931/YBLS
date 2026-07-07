@@ -6,6 +6,7 @@ import { couponAPI, uploadAPI } from '../../api';
 import { Spinner, Button, Badge, EmptyState } from '../../components/ui';
 import ConfirmModal from '../../components/ConfirmModal';
 import type { Coupon } from '../../types';
+import { imageUrl } from '../../utils/image';
 
 export default function AdminCoupons() {
   const [showForm, setShowForm] = useState(false);
@@ -73,7 +74,7 @@ export default function AdminCoupons() {
               <label className="text-xs text-gray-500">Coupon Image</label>
               {form.image ? (
                 <div className="relative mt-1 mb-2">
-                  <img src={form.image} alt="Coupon preview" className="w-full h-24 rounded-2xl object-cover" />
+                  <img src={imageUrl(form.image)} alt="Coupon preview" className="w-full h-24 rounded-2xl object-cover" />
                   <button type="button" onClick={() => setForm({ ...form, image: '' })} className="absolute top-1 right-1 w-6 h-6 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-black/70">
                     <X size={14} />
                   </button>
@@ -121,7 +122,7 @@ export default function AdminCoupons() {
             return (
               <div key={c._id} className="bg-white rounded-2xl overflow-hidden card-shadow">
                 {c.image ? (
-                  <img src={c.image} alt={c.name} className="w-full h-34 rounded-2xl object-cover" />
+                  <img src={imageUrl(c.image)} alt={c.name} className="w-full h-34 rounded-2xl object-cover" />
                 ) : null}
                 <div className="p-5">
                   <div className="flex items-start justify-between mb-3">

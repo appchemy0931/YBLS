@@ -8,6 +8,7 @@ import { promotionAPI, bookingAPI } from '../api';
 import { useAuth } from '../context/AuthContext';
 import { Spinner, Button, PromotionIndicator } from '../components/ui';
 import ConfirmModal from '../components/ConfirmModal';
+import { imageUrl } from '../utils/image';
 
 export default function PromotionDetail() {
   const { id } = useParams();
@@ -100,7 +101,7 @@ export default function PromotionDetail() {
       <div className="grid lg:grid-cols-2 gap-8">
         <div className="relative rounded-2xl overflow-hidden card-shadow">
           <img
-            src={promotion?.image || 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=800'}
+            src={imageUrl(promotion?.image) || 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=800'}
             alt={promotion?.title}
             className="w-full h-80 lg:h-full object-cover"
           />

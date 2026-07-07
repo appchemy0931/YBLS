@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Tag, ArrowRight } from 'lucide-react';
 import { serviceAPI, promotionAPI } from '../api';
 import { ServiceCard, Spinner, PromotionIndicator } from '../components/ui';
+import { imageUrl } from '../utils/image';
 
 export default function Services() {
   const { t } = useTranslation();
@@ -62,7 +63,7 @@ export default function Services() {
                 return (
                   <div key={p._id} className="bg-white rounded-2xl overflow-hidden card-shadow card-shadow-hover">
                     <div className="relative">
-                      <img src={p.image} alt={p.title} className="w-full h-40 object-cover" />
+                      <img src={imageUrl(p.image)} alt={p.title} className="w-full h-40 object-cover" />
                       {p.discount > 0 && (
                         <span className="absolute top-3 right-3 bg-rose-deep text-white text-sm font-bold px-3 py-1 rounded-full shadow-lg">
                           {p.discount}% {t('servicesPage.promotions.off')}

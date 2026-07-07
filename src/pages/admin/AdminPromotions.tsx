@@ -6,6 +6,7 @@ import { promotionAPI, uploadAPI } from '../../api';
 import { Spinner, Button, Badge, EmptyState, PromotionIndicator } from '../../components/ui';
 import ConfirmModal from '../../components/ConfirmModal';
 import { sanitizeAmount } from '../../utils/format';
+import { imageUrl } from '../../utils/image';
 import type { Promotion } from '../../types';
 
 const formatDate = (d?: string) => (d ? new Date(d).toLocaleDateString() : '');
@@ -114,7 +115,7 @@ export default function AdminPromotions() {
                 <label className="text-xs text-gray-500">Image</label>
                 {form.image && (
                   <div className="relative mt-1 mb-2">
-                    <img src={form.image} alt="Preview" className="w-full h-32 object-cover rounded-lg" />
+                    <img src={imageUrl(form.image)} alt="Preview" className="w-full h-32 object-cover rounded-lg" />
                     <button type="button" onClick={() => setForm({ ...form, image: '' })} className="absolute top-1 right-1 w-6 h-6 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-black/70">
                       <X size={14} />
                     </button>
@@ -144,7 +145,7 @@ export default function AdminPromotions() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {promotions.map((p) => (
             <div key={p._id} className="bg-white rounded-2xl overflow-hidden card-shadow">
-              <img src={p.image} alt={p.title} className="w-full h-32 object-cover" />
+              <img src={imageUrl(p.image)} alt={p.title} className="w-full h-32 object-cover" />
               <div className="p-4">
                 <div className="mb-2"><PromotionIndicator /></div>
                 <div className="flex items-start justify-between gap-2 mb-2">
