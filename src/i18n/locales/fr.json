@@ -48,7 +48,7 @@
     "time": "Heure",
     "paymentMethod": "Mode de paiement",
     "total": "Total",
-    "coupon": "Coupon",
+    "couponName": "Coupon",
     "walletCredit": "Crédit de portefeuille",
     "purchasePrice": "Prix d'achat",
     "tier": "Niveau",
@@ -170,7 +170,8 @@
       "0": { "title": "Coiffure", "desc": "Coupes & couleurs signature par des stylistes certifiés", "promo": "Les nouveaux clients reçoivent un bonus de portefeuille de RM100" },
       "1": { "title": "Soin du visage", "desc": "Soins pour une peau éclatante et radieuse", "promo": "Gagnez 5% de récompenses de parrainage sur les achats de classement" },
       "2": { "title": "Art des ongles", "desc": "Manucures & pédicures créatives", "promo": "Payez 50% solde + 50% bonus sur les services" },
-      "3": { "title": "Spa & Massage", "desc": "Détendez-vous & régénérez votre corps", "promo": "Parrainez des amis & gagnez des récompenses multi-niveaux" }
+      "3": { "title": "Spa & Massage", "desc": "Détendez-vous & régénérez votre corps", "promo": "Parrainez des amis & gagnez des récompenses multi-niveaux" },
+      "4": { "title": "Éclat d'hiver", "desc": "Soins saisonniers pour une peau éclatante en hiver", "promo": "Parrainez des amis & gagnez des récompenses multi-niveaux" }
     }
   },
   "ui": {

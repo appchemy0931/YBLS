@@ -61,10 +61,10 @@ export default function Footer() {
                 <MapPin size={16} className="text-gold-400" /> {t('footer.address')}
               </li>
               <li className="flex items-center gap-2">
-                <Phone size={16} className="text-gold-400" /> +60 123 456 789
+                <Phone size={16} className="text-gold-400" /> +60 11 2088 1183
               </li>
               <li className="flex items-center gap-2">
-                <Mail size={16} className="text-gold-400" /> hello@ybls.com
+                <Mail size={16} className="text-gold-400" /> Evonnechong0224@gmail.com
               </li>
             </ul>
           </div>

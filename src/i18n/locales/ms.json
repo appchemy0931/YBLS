@@ -48,7 +48,7 @@
     "time": "Masa",
     "paymentMethod": "Kaedah Pembayaran",
     "total": "Jumlah",
-    "coupon": "Kupon",
+    "couponName": "Kupon",
     "walletCredit": "Kredit Dompet",
     "purchasePrice": "Harga Pembelian",
     "tier": "Tahap",
@@ -170,7 +170,8 @@
       "0": { "title": "Gaya Rambut", "desc": "Potongan & warna tanda tangan oleh stylists bertauliah", "promo": "Pelanggan baharu dapat bonus dompet RM100" },
       "1": { "title": "Penjagaan Wajah", "desc": "Rawatan kulit yang berseri dan bercahaya", "promo": "Dapatkan 5% ganjaran rujukan untuk pembelian ranking" },
       "2": { "title": "Seni Kuku", "desc": "Manikur & pedikur kreatif", "promo": "Bayar 50% baki + 50% bonus untuk perkhidmatan" },
-      "3": { "title": "Spa & Urut", "desc": "Santai & segarkan semula badan anda", "promo": "Rujuk rakan & dapatkan ganjaran berbilang tahap" }
+      "3": { "title": "Spa & Urut", "desc": "Santai & segarkan semula badan anda", "promo": "Rujuk rakan & dapatkan ganjaran berbilang tahap" },
+      "4": { "title": "Kecerahan Musim Sejuk", "desc": "Rawatan bermusim untuk kulit berseri musim sejuk", "promo": "Rujuk rakan & dapatkan ganjaran berbilang tahap" }
     }
   },
   "ui": {

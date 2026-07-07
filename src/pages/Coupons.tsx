@@ -108,7 +108,7 @@ export default function Coupons() {
         details={
           confirmCoupon
             ? [
-                { label: t('confirmModal.coupon'), value: confirmCoupon.name },
+                { label: t('confirmModal.couponName'), value: confirmCoupon.name },
                 { label: t('confirmModal.walletCredit'), value: <span className="text-rose-deep font-bold">RM{confirmCoupon.amount.toFixed(2)}</span> },
                 { label: t('confirmModal.purchasePrice'), value: <span className="text-rose-deep font-bold">RM{confirmCoupon.price.toFixed(2)}</span> },
               ]

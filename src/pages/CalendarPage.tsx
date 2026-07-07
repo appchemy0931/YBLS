@@ -72,7 +72,7 @@ export default function CalendarPage() {
                 const dayBookings = bookingsByDate[dateStr] || [];
                 const today = new Date().toDateString() === new Date(year, month, day).toDateString();
                 return (
-                  <div key={i} className={`min-h-[60px] p-1.5 rounded-lg border ${today ? 'border-rose-deep bg-rose-soft' : 'border-gray-100'} ${dayBookings.length > 0 ? 'bg-blush-50' : ''}`}>
+                  <div key={i} className={`min-h-15 p-1.5 rounded-lg border ${today ? 'border-rose-deep bg-rose-soft' : 'border-gray-100'} ${dayBookings.length > 0 ? 'bg-blush-50' : ''}`}>
                     <p className={`text-xs ${today ? 'font-bold text-rose-deep' : 'text-gray-500'}`}>{day}</p>
                     {dayBookings.slice(0, 2).map((b) => (
                       <div key={b._id} className="text-[10px] bg-rose-deep/10 text-rose-deep rounded px-1 py-0.5 mt-0.5 truncate">
@@ -94,7 +94,7 @@ export default function CalendarPage() {
               <div className="space-y-3">
                 {activeBookings.slice(0, 10).map((b) => (
                   <div key={b._id} className="flex items-start gap-3 p-3 rounded-xl hover:bg-blush-50 transition-colors">
-                    <div className="w-10 h-10 rounded-lg bg-rose-soft flex items-center justify-center flex-shrink-0">
+                    <div className="w-10 h-10 rounded-lg bg-rose-soft flex items-center justify-center shrink-0">
                       <Clock size={16} className="text-rose-deep" />
                     </div>
                     <div className="flex-1 min-w-0">

@@ -1,18 +1,20 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { Sparkles, Scissors, ShoppingBag, Gift, Users, ArrowRight, Star, Heart, Award, Tag } from 'lucide-react';
+import { Sparkles, Scissors, ShoppingBag, Gift, Users, ArrowRight, Star, Heart, Award, Tag, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { serviceAPI, productAPI, promotionAPI } from '../api';
 import { ServiceCard, ProductCard, Spinner, PromotionIndicator } from '../components/ui';
-import heroImg from '../assets/hero.png';
+import KidneyCare from '../assets/KidneyCare.jpg';
 import fn3Img from '../assets/fn3.jpg';
 import dubaiImg from '../assets/Dubai.jpg';
 import snowmanImg from '../assets/cute-snowman.jpg';
 import { imageUrl } from '../utils/image';
+import BackMeridian from '../assets/Back Meridian.jpg';
 
 const heroSlides = [
-  { image: heroImg },
+  { image: BackMeridian },
+  { image: KidneyCare },
   { image: fn3Img },
   { image: dubaiImg },
   { image: snowmanImg },
@@ -41,10 +43,22 @@ export default function Home() {
     .slice(0, 3);
 
   const [slide, setSlide] = useState(0);
+  const [lightbox, setLightbox] = useState(false);
   useEffect(() => {
     const t = setTimeout(() => setSlide((s) => (s + 1) % heroSlides.length), 3500);
     return () => clearTimeout(t);
   }, [slide]);
+
+  useEffect(() => {
+    if (!lightbox) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setLightbox(false);
+      if (e.key === 'ArrowRight') setSlide((s) => (s + 1) % heroSlides.length);
+      if (e.key === 'ArrowLeft') setSlide((s) => (s - 1 + heroSlides.length) % heroSlides.length);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [lightbox]);
 
   const features = [
     { icon: Scissors, title: t('home.features.expert.title'), desc: t('home.features.expert.desc') },
@@ -108,24 +122,25 @@ export default function Home() {
                     <img
                       src={imageUrl(s.image)}
                       alt={t('home.slides.' + i + '.title')}
-                      className={`w-full h-full object-cover ${i === slide ? 'animate-ken-burns' : 'scale-105'}`}
+                      onClick={() => { setSlide(i); setLightbox(true); }}
+                      className={`w-full h-full object-cover cursor-zoom-in ${i === slide ? 'animate-ken-burns' : 'scale-105'}`}
                     />
                   </div>
                 ))}
 
-                <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent pointer-events-none" />
+                <div className="absolute inset-0 bg-transparent pointer-events-none" />
 
                 <div className="absolute top-0 left-0 right-0 h-1 bg-white/20">
                   <div key={slide} className="h-full bg-gold-400 animate-progress" />
                 </div>
 
-                <div className="absolute top-5 left-5">
+                {/* <div className="absolute top-5 left-5">
                   <span key={`promo-${slide}`} className="inline-flex items-center gap-2 bg-rose-deep/90 backdrop-blur-sm text-white text-xs font-medium px-3 py-1.5 rounded-full shadow-lg animate-fade-in">
                     <Sparkles size={14} /> {t('home.slides.' + slide + '.promo')}
                   </span>
-                </div>
+                </div> */}
 
-                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                <div className="absolute bottom-0 left-0 right-0 p-6 text-white" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.8)' }}>
                   <div key={`cap-${slide}`} className="animate-slide-up">
                     <h3 className="text-2xl font-bold" style={{ fontFamily: 'Playfair Display, serif' }}>{t('home.slides.' + slide + '.title')}</h3>
                     <p className="text-sm text-gray-200 mt-1">{t('home.slides.' + slide + '.desc')}</p>
@@ -143,7 +158,7 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="absolute -bottom-6 -left-6 bg-white rounded-2xl p-4 shadow-xl flex items-center gap-3 animate-float">
+              <div className="absolute -bottom-15 -right-6 bg-white rounded-2xl p-4 shadow-xl flex items-center gap-3 animate-float">
                 <div className="w-12 h-12 rounded-full bg-gold-100 flex items-center justify-center">
                   <Star className="text-gold-500 fill-gold-500" size={24} />
                 </div>
@@ -293,6 +308,54 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {lightbox && (
+        <div
+          className="fixed inset-0 z-100 bg-black/90 flex items-center justify-center animate-[fade-in_0.2s_ease-out]"
+          onClick={() => setLightbox(false)}
+        >
+          <button
+            type="button"
+            aria-label="Close"
+            className="absolute top-5 right-5 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors"
+            onClick={(e) => { e.stopPropagation(); setLightbox(false); }}
+          >
+            <X size={26} />
+          </button>
+          <button
+            type="button"
+            aria-label="Previous"
+            className="absolute left-5 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors"
+            onClick={(e) => { e.stopPropagation(); setSlide((s) => (s - 1 + heroSlides.length) % heroSlides.length); }}
+          >
+            <ChevronLeft size={28} />
+          </button>
+          <img
+            src={imageUrl(heroSlides[slide].image)}
+            alt={t('home.slides.' + slide + '.title')}
+            className="max-w-[90vw] max-h-[90vh] object-contain rounded-lg shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          />
+          <button
+            type="button"
+            aria-label="Next"
+            className="absolute right-5 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors"
+            onClick={(e) => { e.stopPropagation(); setSlide((s) => (s + 1) % heroSlides.length); }}
+          >
+            <ChevronRight size={28} />
+          </button>
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2">
+            {heroSlides.map((s, i) => (
+              <button
+                key={i}
+                aria-label={`Slide ${i + 1}`}
+                className={`h-2 rounded-full transition-all duration-300 ${i === slide ? 'w-8 bg-white' : 'w-2 bg-white/40 hover:bg-white/70'}`}
+                onClick={(e) => { e.stopPropagation(); setSlide(i); }}
+              />
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

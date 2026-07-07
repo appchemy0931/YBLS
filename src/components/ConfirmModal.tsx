@@ -72,7 +72,7 @@ export default function ConfirmModal({
               {details.map((d, i) => (
                 <div key={i} className="flex items-start justify-between gap-3 px-4 py-2.5">
                   <dt className="text-xs text-gray-500 pt-0.5 shrink-0">{d.label}</dt>
-                  <dd className="text-sm font-medium text-gray-800 text-right break-words">{d.value}</dd>
+                  <dd className="text-sm font-medium text-gray-800 text-right wrap-break-word">{d.value}</dd>
                 </div>
               ))}
             </dl>

@@ -89,7 +89,7 @@ export default function Login() {
               disabled={loginMutation.isPending}
               className="w-full bg-linear-to-r from-rose-deep to-rose-medium text-white py-3.5 rounded-xl font-medium hover:shadow-xl transition-all disabled:opacity-50 flex items-center justify-center gap-2"
             >
-              {loginMutation.isPending ? <Spinner className="!min-h-0 [&>div]:w-5 [&>div]:h-5 [&>div]:border-t-white" /> : t('auth.signIn')}
+              {loginMutation.isPending ? <Spinner className="min-h-0! [&>div]:w-5 [&>div]:h-5 [&>div]:border-t-white" /> : t('auth.signIn')}
             </button>
           </form>
 

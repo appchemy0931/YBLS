@@ -71,7 +71,7 @@ export default function Wallet() {
       </div>
 
       {showTopUp && (
-        <div className="bg-white rounded-2xl p-6 card-shadow mb-6 animate-[scale-in_0.3s_ease-out]">
+        <div className="bg-white rounded-2xl p-6 card-shadow mb-6 animate-scale-in">
           <h3 className="text-lg font-semibold text-gray-800 mb-4">{t('wallet.topUpWallet')}</h3>
           <div className="flex flex-wrap gap-3 mb-4">
             {[50, 100, 200, 500].map((amt) => (

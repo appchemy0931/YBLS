@@ -48,7 +48,7 @@
     "time": "Giờ",
     "paymentMethod": "Phương thức thanh toán",
     "total": "Tổng cộng",
-    "coupon": "Phiếu giảm giá",
+    "couponName": "Phiếu giảm giá",
     "walletCredit": "Tiền trong ví",
     "purchasePrice": "Giá mua",
     "tier": "Hạng",
@@ -170,7 +170,8 @@
       "0": { "title": "Tạo kiểu tóc", "desc": "Kiểu cắt & nhuộm đặc trưng bởi nhà tạo mẫu được chứng nhận", "promo": "Khách hàng mới nhận RM100 tiền thưởng vào ví" },
       "1": { "title": "Chăm sóc da mặt", "desc": "Liệu trị da sáng bóng, rạng rỡ", "promo": "Nhận 5% thưởng giới thiệu cho các lần mua hạng" },
       "2": { "title": "Nghệ thuật nail", "desc": "Làm móng tay & móng chân sáng tạo", "promo": "Thanh toán 50% số dư + 50% tiền thưởng cho dịch vụ" },
-      "3": { "title": "Spa & Massage", "desc": "Thư giãn & phục hồi cơ thể", "promo": "Giới thiệu bạn bè & nhận thưởng nhiều cấp" }
+      "3": { "title": "Spa & Massage", "desc": "Thư giãn & phục hồi cơ thể", "promo": "Giới thiệu bạn bè & nhận thưởng nhiều cấp" },
+      "4": { "title": "Ánh Sáng Mùa Đông", "desc": "Điều trị theo mùa cho làn da rạng rỡ mùa đông", "promo": "Giới thiệu bạn bè & nhận thưởng nhiều cấp" }
     }
   },
   "ui": {

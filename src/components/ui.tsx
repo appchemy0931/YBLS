@@ -41,9 +41,9 @@ export function Button({
 export function ServiceCard({ service }: { service: Service }) {
   const { t } = useTranslation();
   return (
-    <div className="bg-white rounded-2xl overflow-hidden card-shadow card-shadow-hover animate-[scale-in_0.3s_ease-out]">
+    <div className="bg-white rounded-2xl overflow-hidden card-shadow card-shadow-hover animate-scale-in">
       <Link to={`/services/${service._id}`}>
-        <div className="aspect-[4/3] overflow-hidden bg-blush-50">
+        <div className="aspect-4/3 overflow-hidden bg-blush-50">
           <img
             src={imageUrl(service.image) || 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600'}
             alt={service.name}
@@ -85,7 +85,7 @@ export function ServiceCard({ service }: { service: Service }) {
 export function ProductCard({ product }: { product: Product }) {
   const { t } = useTranslation();
   return (
-    <div className="bg-white rounded-2xl overflow-hidden card-shadow card-shadow-hover animate-[scale-in_0.3s_ease-out]">
+    <div className="bg-white rounded-2xl overflow-hidden card-shadow card-shadow-hover animate-scale-in">
       <Link to={`/products/${product._id}`}>
         <div className="aspect-square overflow-hidden bg-blush-50">
           <img

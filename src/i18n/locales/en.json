@@ -48,7 +48,7 @@
     "time": "Time",
     "paymentMethod": "Payment Method",
     "total": "Total",
-    "coupon": "Coupon",
+    "couponName": "Coupon",
     "walletCredit": "Wallet Credit",
     "purchasePrice": "Purchase Price",
     "tier": "Tier",
@@ -170,7 +170,8 @@
       "0": { "title": "Hair Styling", "desc": "Signature cuts & color by certified stylists", "promo": "New customers get RM100 wallet bonus" },
       "1": { "title": "Facial Care", "desc": "Glowing, radiant skin treatments", "promo": "Earn 5% referral rewards on ranking purchases" },
       "2": { "title": "Nail Art", "desc": "Creative manicures & pedicures", "promo": "Pay 50% balance + 50% bonus on services" },
-      "3": { "title": "Spa & Massage", "desc": "Relax & rejuvenate your body", "promo": "Refer friends & earn multi-level rewards" }
+      "3": { "title": "Spa & Massage", "desc": "Relax & rejuvenate your body", "promo": "Refer friends & earn multi-level rewards" },
+      "4": { "title": "Winter Glow", "desc": "Seasonal treatments for radiant winter skin", "promo": "Refer friends & earn multi-level rewards" }
     }
   },
   "ui": {

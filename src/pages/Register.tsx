@@ -62,7 +62,7 @@ export default function Register() {
         </div>
 
         {form.referralCode && (
-          <div className="bg-gold-50 border border-gold-200 rounded-xl p-4 mb-4 flex items-center gap-3 animate-[scale-in_0.3s_ease-out]">
+          <div className="bg-gold-50 border border-gold-200 rounded-xl p-4 mb-4 flex items-center gap-3 animate-scale-in">
             <Gift size={20} className="text-gold-600" />
             <div>
               <p className="text-sm font-medium text-gold-700">{t('auth.referralApplied')}</p>
@@ -123,7 +123,7 @@ export default function Register() {
 
             <button type="submit" disabled={registerMutation.isPending}
               className="w-full bg-linear-to-r from-rose-deep to-rose-medium text-white py-3.5 rounded-xl font-medium hover:shadow-xl transition-all disabled:opacity-50 flex items-center justify-center gap-2">
-              {registerMutation.isPending ? <Spinner className="!min-h-0 [&>div]:w-5 [&>div]:h-5 [&>div]:border-t-white" /> : t('auth.createAccount')}
+              {registerMutation.isPending ? <Spinner className="min-h-0! [&>div]:w-5 [&>div]:h-5 [&>div]:border-t-white" /> : t('auth.createAccount')}
             </button>
           </form>
 
