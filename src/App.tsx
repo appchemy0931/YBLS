@@ -6,6 +6,7 @@ import AdminLayout from './components/AdminLayout';
 import ProtectedRoute from './components/ProtectedRoute';
 import ErrorBoundary from './components/ErrorBoundary';
 import ScrollToTop from './components/ScrollToTop';
+import BackToTop from './components/BackToTop';
 
 import Home from './pages/Home';
 import Services from './pages/Services';
@@ -46,6 +47,7 @@ export default function App() {
     <AuthProvider>
       <CartProvider>
         <ScrollToTop />
+        <BackToTop />
         <Routes>
           {/* Public + Customer routes (share PublicLayout with Outlet) */}
           <Route element={<PublicLayout />}>
