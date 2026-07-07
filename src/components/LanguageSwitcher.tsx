@@ -13,7 +13,7 @@ export default function LanguageSwitcher() {
       <button
         onClick={() => setOpen(!open)}
         aria-label="Switch language"
-        className="flex items-center gap-1 px-2 py-1 rounded-full text-white hover:bg-white/10 transition-colors text-sm"
+        className="flex items-center gap-1 px-2 py-1 rounded-full text-white hover:bg-green-600 transition-colors text-sm"
       >
         <Globe size={18} />
         <span className="hidden sm:inline">{current.short}</span>

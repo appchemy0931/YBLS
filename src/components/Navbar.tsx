@@ -126,16 +126,16 @@ export default function Navbar() {
               </div>
             ) : (
               <div className="hidden lg:flex items-center gap-3">
-                <Link to="/login" className="text-sm font-medium text-white hover:text-green-500 transition-colors">
+                <Link to="/login" className="text-sm font-medium text-white hover:text-green-500 transition-colors px-4 py-2 rounded-full hover:bg-blue-600">
                   {t('common.login')}
                 </Link>
-                <Link to="/register" className="bg-linear-to-r from-rose-deep to-rose-medium text-white px-6 py-2.5 rounded-full text-sm font-medium hover:shadow-lg transition-all">
+                <Link to="/register" className="bg-linear-to-r from-rose-deep to-rose-medium text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-green-500 hover:from-green-500 hover:to-green-600 transition-all">
                   {t('common.signUp')}
                 </Link>
               </div>
             )}
 
-            <button onClick={() => setOpen(!open)} className="lg:hidden p-2 text-gray-600">
+            <button onClick={() => setOpen(!open)} className="lg:hidden p-2 text-white">
               {open ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
@@ -148,24 +148,24 @@ export default function Navbar() {
                 key={link.to}
                 to={link.to}
                 onClick={() => setOpen(false)}
-                className="block py-3 text-sm font-medium text-gray-600 hover:text-rose-deep transition-colors"
+                className="block py-3 text-sm font-medium text-white hover:text-green-500 transition-colors"
               >
                 {link.label}
               </Link>
             ))}
             {user ? (
               <>
-                <Link to="/dashboard" onClick={() => setOpen(false)} className="block py-3 text-sm font-medium text-gray-600 hover:text-rose-deep">{t('nav.dashboard')}</Link>
-                <Link to="/wallet" onClick={() => setOpen(false)} className="block py-3 text-sm font-medium text-gray-600 hover:text-rose-deep">{t('nav.wallet')}</Link>
+                <Link to="/dashboard" onClick={() => setOpen(false)} className="block py-3 text-sm font-medium text-white hover:text-green-500">{t('nav.dashboard')}</Link>
+                <Link to="/wallet" onClick={() => setOpen(false)} className="block py-3 text-sm font-medium text-white hover:text-green-500">{t('nav.wallet')}</Link>
                 {user.role === 'admin' && (
-                  <Link to="/admin" onClick={() => setOpen(false)} className="block py-3 text-sm font-medium text-gray-600 hover:text-rose-deep">{t('nav.adminDashboard')}</Link>
+                  <Link to="/admin" onClick={() => setOpen(false)} className="block py-3 text-sm font-medium text-white hover:text-green-500">{t('nav.adminDashboard')}</Link>
                 )}
                 <button onClick={handleLogout} className="block py-3 text-sm font-medium text-red-500 w-full text-left">{t('common.logout')}</button>
               </>
             ) : (
               <div className="flex gap-3 pt-3">
-                <Link to="/login" onClick={() => setOpen(false)} className="flex-1 text-center border-2 border-rose-deep text-rose-deep py-2.5 rounded-full text-sm font-medium">{t('common.login')}</Link>
-                <Link to="/register" onClick={() => setOpen(false)} className="flex-1 text-center bg-rose-deep text-white py-2.5 rounded-full text-sm font-medium">{t('common.signUp')}</Link>
+                <Link to="/login" onClick={() => setOpen(false)} className="flex-1 text-center border-2 border-rose-deep text-white py-2.5 rounded-full text-sm font-medium hover:bg-blue-600 hover:border-blue-600 transition-colors">{t('common.login')}</Link>
+                <Link to="/register" onClick={() => setOpen(false)} className="flex-1 text-center bg-rose-deep text-white py-2.5 rounded-full text-sm font-medium hover:bg-green-500 transition-colors">{t('common.signUp')}</Link>
               </div>
             )}
           </div>
