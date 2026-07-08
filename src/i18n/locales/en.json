@@ -397,7 +397,12 @@
     "productPayment": "Product Payment",
     "couponPurchase": "Coupon Purchase",
     "rankingPurchase": "Ranking Purchase",
-    "rankingBonus": "Ranking Bonus"
+    "rankingBonus": "Ranking Bonus",
+    "signupBonus": "Signup Bonus",
+    "upgradeRanking": "Upgrade Ranking",
+    "yourRanking": "Your Ranking",
+    "rankingModalTitle": "Upgrade Your Ranking",
+    "selectTierUpgrade": "Select a tier to upgrade your ranking"
   },
   "coupons": {
     "pageTitle": "Top-Up Coupons",
@@ -504,7 +509,13 @@
     "updating": "Updating...",
     "passwordChanged": "Password changed!",
     "passwordsDoNotMatch": "Passwords do not match",
-    "passwordMinLength": "Password must be at least 6 characters"
+    "passwordMinLength": "Password must be at least 6 characters",
+    "changeAvatar": "Change Avatar",
+    "uploadAvatar": "Upload Avatar",
+    "removeAvatar": "Remove Avatar",
+    "uploadingAvatar": "Uploading avatar...",
+    "avatarUpdated": "Avatar updated!",
+    "avatarUpdateFailed": "Avatar update failed"
   },
   "admin": {
     "layout": {

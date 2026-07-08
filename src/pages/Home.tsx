@@ -6,17 +6,17 @@ import { useTranslation } from 'react-i18next';
 import { serviceAPI, productAPI, promotionAPI } from '../api';
 import { ServiceCard, ProductCard, Spinner, PromotionIndicator } from '../components/ui';
 import KidneyCare from '../assets/Kidney-Care.jpg';
-import fn3Img from '../assets/fn3.jpg';
-import dubaiImg from '../assets/Dubai.jpg';
+import jinLuo from '../assets/jinluo.jpg';
+import shiOng from '../assets/shiong.jpg';
 import snowmanImg from '../assets/cute-snowman.jpg';
 import { imageUrl } from '../utils/image';
-import BackMeridian from '../assets/Back Meridian.jpg';
+import zhiGong from '../assets/zhigong.jpg';
 
 const heroSlides = [
-  { image: BackMeridian },
+  { image: zhiGong },
   { image: KidneyCare },
-  { image: fn3Img },
-  { image: dubaiImg },
+  { image: jinLuo },
+  { image: shiOng },
   { image: snowmanImg },
 ];
 

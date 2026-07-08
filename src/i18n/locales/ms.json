@@ -397,7 +397,12 @@
     "productPayment": "Pembayaran Produk",
     "couponPurchase": "Pembelian Kupon",
     "rankingPurchase": "Pembelian Pangkat",
-    "rankingBonus": "Bonus Pangkat"
+    "rankingBonus": "Bonus Pangkat",
+    "signupBonus": "Bonus Daftar",
+    "upgradeRanking": "Naik Taraf Pangkat",
+    "yourRanking": "Pangkat Anda",
+    "rankingModalTitle": "Naik Taraf Pangkat Anda",
+    "selectTierUpgrade": "Pilih tahap untuk naik taraf pangkat anda"
   },
   "coupons": {
     "pageTitle": "Kupon Tambah Nilai",
@@ -504,7 +509,13 @@
     "updating": "Mengemas kini...",
     "passwordChanged": "Kata laluan ditukar!",
     "passwordsDoNotMatch": "Kata laluan tidak sepadan",
-    "passwordMinLength": "Kata laluan mesti sekurang-kurangnya 6 aksara"
+    "passwordMinLength": "Kata laluan mesti sekurang-kurangnya 6 aksara",
+    "changeAvatar": "Tukar Avatar",
+    "uploadAvatar": "Muat Naik Avatar",
+    "removeAvatar": "Buang Avatar",
+    "uploadingAvatar": "Memuat naik avatar...",
+    "avatarUpdated": "Avatar dikemas kini!",
+    "avatarUpdateFailed": "Kemas kini avatar gagal"
   },
   "admin": {
     "layout": {

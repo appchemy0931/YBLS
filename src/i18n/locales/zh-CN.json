@@ -397,7 +397,12 @@
     "productPayment": "产品付款",
     "couponPurchase": "优惠券购买",
     "rankingPurchase": "等级购买",
-    "rankingBonus": "等级奖励"
+    "rankingBonus": "等级奖励",
+    "signupBonus": "注册奖励",
+    "upgradeRanking": "升级等级",
+    "yourRanking": "您的等级",
+    "rankingModalTitle": "升级您的等级",
+    "selectTierUpgrade": "选择一个等级来升级您的等级"
   },
   "coupons": {
     "pageTitle": "充值优惠券",
@@ -504,7 +509,13 @@
     "updating": "更新中...",
     "passwordChanged": "密码已修改！",
     "passwordsDoNotMatch": "两次密码不一致",
-    "passwordMinLength": "密码至少需要 6 个字符"
+    "passwordMinLength": "密码至少需要 6 个字符",
+    "changeAvatar": "更换头像",
+    "uploadAvatar": "上传头像",
+    "removeAvatar": "移除头像",
+    "uploadingAvatar": "正在上传头像...",
+    "avatarUpdated": "头像已更新！",
+    "avatarUpdateFailed": "头像更新失败"
   },
   "admin": {
     "layout": {

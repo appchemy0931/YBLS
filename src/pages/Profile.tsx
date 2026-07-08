@@ -1,17 +1,20 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useMutation } from '@tanstack/react-query';
-import { User, Mail, Phone, Lock, Save, Key } from 'lucide-react';
+import { User, Mail, Phone, Lock, Save, Key, Camera, Trash2 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
-import { authAPI } from '../api';
+import { authAPI, uploadAPI } from '../api';
 import { useAuth } from '../context/AuthContext';
 import { Button } from '../components/ui';
+import { imageUrl } from '../utils/image';
 
 export default function Profile() {
   const { user, updateUser } = useAuth();
   const [form, setForm] = useState({ name: user?.name || '', phone: user?.phone || '' });
   const [pwForm, setPwForm] = useState({ currentPassword: '', newPassword: '', confirmPassword: '' });
   const [showPwSection, setShowPwSection] = useState(false);
+  const [uploadingAvatar, setUploadingAvatar] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const { t } = useTranslation();
 
   const updateMutation = useMutation({
@@ -28,6 +31,15 @@ export default function Profile() {
     onSuccess: () => {
       toast.success(t('profile.passwordChanged'));
       setPwForm({ currentPassword: '', newPassword: '', confirmPassword: '' });
+    },
+    onError: (err: Error) => toast.error(err.message),
+  });
+
+  const avatarMutation = useMutation({
+    mutationFn: (profileImage: string) => authAPI.updateProfile({ profileImage }),
+    onSuccess: (res) => {
+      updateUser(res.data as any);
+      toast.success(t('profile.avatarUpdated'));
     },
     onError: (err: Error) => toast.error(err.message),
   });
@@ -50,20 +62,88 @@ export default function Profile() {
     pwMutation.mutate();
   };
 
+  const handleAvatarUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    try {
+      setUploadingAvatar(true);
+      const { data } = await uploadAPI.uploadAvatar(file);
+      await avatarMutation.mutateAsync(data.image);
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : t('profile.avatarUpdateFailed'));
+    } finally {
+      setUploadingAvatar(false);
+      e.target.value = '';
+    }
+  };
+
+  const handleRemoveAvatar = () => {
+    avatarMutation.mutate('');
+  };
+
+  const avatarSrc = imageUrl(user?.profileImage);
+
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <h1 className="text-3xl font-bold text-gray-800 mb-1" style={{ fontFamily: 'Playfair Display, serif' }}>{t('profile.pageTitle')}</h1>
       <p className="text-gray-500 mb-8">{t('profile.pageIntro')}</p>
 
       <div className="bg-white rounded-2xl p-6 card-shadow mb-6">
-        <div className="flex items-center gap-4 mb-6">
-          <div className="w-20 h-20 rounded-full bg-linear-to-br from-rose-deep to-gold-400 flex items-center justify-center text-white text-2xl font-bold">
-            {user?.name?.charAt(0).toUpperCase()}
+        <div className="flex items-center gap-4 mb-6 flex-wrap">
+          <div className="relative group">
+            <div className="w-24 h-24 rounded-full bg-linear-to-br from-rose-deep to-gold-400 flex items-center justify-center text-white text-3xl font-bold overflow-hidden ring-2 ring-rose-soft">
+              {avatarSrc ? (
+                <img src={avatarSrc} alt={user?.name} className="w-full h-full object-cover" />
+              ) : (
+                <span>{user?.name?.charAt(0).toUpperCase()}</span>
+              )}
+            </div>
+            <button
+              type="button"
+              onClick={() => fileInputRef.current?.click()}
+              disabled={uploadingAvatar || avatarMutation.isPending}
+              className="absolute -bottom-1 -right-1 w-9 h-9 rounded-full bg-rose-deep text-white flex items-center justify-center shadow-lg hover:bg-rose-medium transition-colors disabled:opacity-50"
+              aria-label={t('profile.changeAvatar')}
+            >
+              <Camera size={16} />
+            </button>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={handleAvatarUpload}
+              disabled={uploadingAvatar}
+            />
           </div>
-          <div>
-            <h2 className="text-xl font-semibold text-gray-800">{user?.name}</h2>
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-2 flex-wrap">
+              <h2 className="text-xl font-semibold text-gray-800">{user?.name}</h2>
+              {uploadingAvatar && <span className="text-xs text-gold-600">{t('profile.uploadingAvatar')}</span>}
+              {avatarMutation.isPending && !uploadingAvatar && <span className="text-xs text-gold-600">{t('profile.saving')}</span>}
+            </div>
             <p className="text-sm text-gray-400">{user?.email}</p>
             <p className="text-xs text-gold-600 mt-1">{t('profile.referralCode', { code: user?.referralCode })}</p>
+            <div className="flex items-center gap-3 mt-2">
+              <button
+                type="button"
+                onClick={() => fileInputRef.current?.click()}
+                disabled={uploadingAvatar || avatarMutation.isPending}
+                className="text-xs font-medium text-rose-deep hover:text-rose-medium disabled:opacity-50"
+              >
+                {avatarSrc ? t('profile.changeAvatar') : t('profile.uploadAvatar')}
+              </button>
+              {avatarSrc && (
+                <button
+                  type="button"
+                  onClick={handleRemoveAvatar}
+                  disabled={avatarMutation.isPending}
+                  className="text-xs font-medium text-red-400 hover:text-red-500 inline-flex items-center gap-1 disabled:opacity-50"
+                >
+                  <Trash2 size={12} /> {t('profile.removeAvatar')}
+                </button>
+              )}
+            </div>
           </div>
         </div>
 

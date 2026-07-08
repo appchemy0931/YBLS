@@ -108,7 +108,7 @@ export interface Coupon {
 export interface WalletTransaction {
   _id: string;
   userId: string;
-  type: 'TOPUP' | 'BOOKING_PAYMENT' | 'PRODUCT_PAYMENT' | 'REFUND' | 'REFERRAL_BONUS' | 'COUPON_PURCHASE' | 'RANKING_PURCHASE' | 'RANKING_BONUS';
+  type: 'TOPUP' | 'BOOKING_PAYMENT' | 'PRODUCT_PAYMENT' | 'REFUND' | 'REFERRAL_BONUS' | 'COUPON_PURCHASE' | 'RANKING_PURCHASE' | 'RANKING_BONUS' | 'SIGNUP_BONUS';
   amount: number;
   description: string;
   balanceAfter?: number;

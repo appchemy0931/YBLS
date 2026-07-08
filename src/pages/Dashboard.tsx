@@ -53,7 +53,7 @@ export default function Dashboard() {
     { icon: Calendar, label: t('dashboard.totalBookings'), value: (bookingsData?.bookings || []).length, color: 'from-rose-soft to-rose-medium', link: '/bookings' },
     { icon: Wallet, label: t('dashboard.walletBalance'), value: `RM${(walletData?.walletBalance ?? user?.walletBalance ?? 0).toFixed(2)}`, color: 'from-gold-100 to-gold-300', link: '/wallet' },
     { icon: Users, label: t('dashboard.referrals'), value: referralData?.stats.totalReferrals || 0, color: 'from-blush-100 to-blush-300', link: '/referral' },
-    { icon: Gift, label: t('dashboard.bonusBalance'), value: `RM${(walletData?.walletBonus ?? user?.walletBonus ?? 0).toFixed(2)}`, color: 'from-rose-medium to-rose-deep', link: '/wallet' },
+    { icon: Gift, label: t('dashboard.bonusBalance'), value: `${(walletData?.walletBonus ?? user?.walletBonus ?? 0).toFixed(2)}`, color: 'from-rose-medium to-rose-deep', link: '/wallet' },
   ];
 
   const upcomingBookings = (bookingsData?.bookings || []).filter(

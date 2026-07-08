@@ -397,7 +397,12 @@
     "productPayment": "Thanh toán sản phẩm",
     "couponPurchase": "Mua phiếu giảm giá",
     "rankingPurchase": "Mua hạng",
-    "rankingBonus": "Thưởng hạng"
+    "rankingBonus": "Thưởng hạng",
+    "signupBonus": "Thưởng đăng ký",
+    "upgradeRanking": "Nâng cấp hạng",
+    "yourRanking": "Hạng của bạn",
+    "rankingModalTitle": "Nâng cấp hạng của bạn",
+    "selectTierUpgrade": "Chọn một cấp độ để nâng cấp hạng của bạn"
   },
   "coupons": {
     "pageTitle": "Phiếu nạp tiền",
@@ -504,7 +509,13 @@
     "updating": "Đang cập nhật...",
     "passwordChanged": "Đã đổi mật khẩu!",
     "passwordsDoNotMatch": "Mật khẩu không khớp",
-    "passwordMinLength": "Mật khẩu phải có ít nhất 6 ký tự"
+    "passwordMinLength": "Mật khẩu phải có ít nhất 6 ký tự",
+    "changeAvatar": "Đổi ảnh đại diện",
+    "uploadAvatar": "Tải ảnh đại diện",
+    "removeAvatar": "Xóa ảnh đại diện",
+    "uploadingAvatar": "Đang tải ảnh đại diện...",
+    "avatarUpdated": "Đã cập nhật ảnh đại diện!",
+    "avatarUpdateFailed": "Cập nhật ảnh đại diện thất bại"
   },
   "admin": {
     "layout": {

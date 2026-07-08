@@ -43,7 +43,7 @@ export default function AdminReferrals() {
           { label: t('admin.referrals.totalReferrals'), value: allReferrals.length, color: 'from-rose-soft to-rose-medium' },
           { label: t('admin.referrals.level1'), value: allReferrals.filter((r) => r.level === 1).length, color: 'from-gold-100 to-gold-300' },
           { label: t('admin.referrals.level2'), value: allReferrals.filter((r) => r.level === 2).length, color: 'from-blush-100 to-blush-300' },
-          { label: t('admin.referrals.totalRewards'), value: `RM${totalReward.toFixed(2)}`, color: 'from-rose-medium to-rose-deep' },
+          { label: t('admin.referrals.totalRewards'), value: totalReward.toFixed(2), color: 'from-rose-medium to-rose-deep' },
         ].map((c, i) => (
           <div key={i} className="bg-white rounded-2xl p-5 card-shadow">
             <div className={`w-10 h-10 rounded-xl bg-linear-to-br ${c.color} flex items-center justify-center mb-2`}>
@@ -87,7 +87,7 @@ export default function AdminReferrals() {
                   <td className="px-4 py-3">
                     <Badge variant={r.level === 1 ? 'success' : r.level === 2 ? 'info' : 'warning'}>{t('admin.referrals.levelBadge', { n: r.level })}</Badge>
                   </td>
-                  <td className="px-4 py-3 font-bold text-green-600">+RM{r.reward.toFixed(2)}</td>
+                  <td className="px-4 py-3 font-bold text-green-600">+{r.reward.toFixed(2)}</td>
                   <td className="px-4 py-3 text-xs text-gray-400">{new Date(r.createdAt).toLocaleDateString()}</td>
                 </tr>
               ))}

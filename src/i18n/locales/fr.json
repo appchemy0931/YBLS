@@ -397,7 +397,12 @@
     "productPayment": "Paiement de produit",
     "couponPurchase": "Achat de coupon",
     "rankingPurchase": "Achat de classement",
-    "rankingBonus": "Bonus de classement"
+    "rankingBonus": "Bonus de classement",
+    "signupBonus": "Bonus d'inscription",
+    "upgradeRanking": "Améliorer le classement",
+    "yourRanking": "Votre classement",
+    "rankingModalTitle": "Améliorez votre classement",
+    "selectTierUpgrade": "Sélectionnez un niveau pour améliorer votre classement"
   },
   "coupons": {
     "pageTitle": "Coupons de recharge",
@@ -504,7 +509,13 @@
     "updating": "Mise à jour...",
     "passwordChanged": "Mot de passe modifié !",
     "passwordsDoNotMatch": "Les mots de passe ne correspondent pas",
-    "passwordMinLength": "Le mot de passe doit contenir au moins 6 caractères"
+    "passwordMinLength": "Le mot de passe doit contenir au moins 6 caractères",
+    "changeAvatar": "Changer d'avatar",
+    "uploadAvatar": "Télécharger un avatar",
+    "removeAvatar": "Supprimer l'avatar",
+    "uploadingAvatar": "Téléchargement de l'avatar...",
+    "avatarUpdated": "Avatar mis à jour !",
+    "avatarUpdateFailed": "Échec de la mise à jour de l'avatar"
   },
   "admin": {
     "layout": {

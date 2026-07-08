@@ -185,7 +185,7 @@ export default function AdminWallet() {
                   <td className="px-4 py-3 text-gray-600">{typeLabels[tx.type] || tx.type}</td>
                   <td className="px-4 py-3 text-gray-500 text-xs max-w-xs truncate">{tx.description}</td>
                   <td className={`px-4 py-3 font-bold ${tx.amount > 0 ? 'text-green-600' : 'text-red-500'}`}>
-                    {tx.amount > 0 ? '+' : ''}RM{tx.amount.toFixed(2)}
+                    {tx.amount > 0 ? '+' : ''}{['SIGNUP_BONUS', 'RANKING_BONUS', 'REFERRAL_BONUS'].includes(tx.type) ? '' : 'RM'}{tx.amount.toFixed(2)}
                   </td>
                   <td className="px-4 py-3 text-gray-600">{tx.balanceAfter !== undefined ? `RM${tx.balanceAfter.toFixed(2)}` : '-'}</td>
                   <td className="px-4 py-3 text-xs text-gray-400">{new Date(tx.date).toLocaleDateString()}</td>

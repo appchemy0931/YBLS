@@ -51,7 +51,7 @@ export default function Referral() {
         <div className="bg-linear-to-br from-[#3a2a2a] to-[#2a1f1f] rounded-2xl p-6 text-white">
           <Award size={28} className="text-gold-400 mb-3" />
           <h2 className="text-lg font-semibold mb-1">{t('referral.totalRewardsEarned')}</h2>
-          <p className="text-4xl font-bold text-gold-400">RM{(infoData?.stats.totalReward || 0).toFixed(2)}</p>
+          <p className="text-4xl font-bold text-gold-400">{(infoData?.stats.totalReward || 0).toFixed(2)}</p>
           <p className="text-sm text-gray-300 mt-2">{t('referral.totalReferralsCount', { count: infoData?.stats.totalReferrals || 0 })}</p>
         </div>
         <div className="bg-white rounded-2xl p-6 card-shadow">
@@ -137,7 +137,7 @@ export default function Referral() {
                   <p className="font-medium text-gray-800 text-sm">{typeof r.newUserId === 'object' && r.newUserId ? r.newUserId.name : 'User'}</p>
                   <p className="text-xs text-gray-400">{t('referral.level', { level: r.level })} · {new Date(r.createdAt).toLocaleDateString()}</p>
                 </div>
-                <span className="font-bold text-green-600 text-sm">+RM{r.reward.toFixed(2)}</span>
+                <span className="font-bold text-green-600 text-sm">+{r.reward.toFixed(2)}</span>
               </div>
             ))}
           </div>
