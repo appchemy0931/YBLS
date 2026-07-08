@@ -118,7 +118,7 @@ export default function Profile() {
           </div>
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 flex-wrap">
-              <h2 className="text-xl font-semibold text-gray-800">{user?.name}</h2>
+              <h1 className="text-3xl font-semibold text-gray-800">{user?.name}</h1>
               {uploadingAvatar && <span className="text-xs text-gold-600">{t('profile.uploadingAvatar')}</span>}
               {avatarMutation.isPending && !uploadingAvatar && <span className="text-xs text-gold-600">{t('profile.saving')}</span>}
             </div>

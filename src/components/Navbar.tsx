@@ -4,6 +4,7 @@ import { Menu, X, ShoppingCart, User, LogOut, LayoutDashboard, Calendar, Wallet,
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
+import { imageUrl } from '../utils/image';
 import LanguageSwitcher from './LanguageSwitcher';
 import YBLSLogo from '../assets/YBLS-Logo.png';
 
@@ -72,10 +73,14 @@ export default function Navbar() {
                   onClick={() => setUserMenu(!userMenu)}
                   className="flex items-center gap-2 px-4 py-2 rounded-full hover:bg-rose-soft transition-colors"
                 >
-                  <div className="w-8 h-8 rounded-full bg-linear-to-br from-rose-deep to-gold-400 flex items-center justify-center text-white text-sm font-medium">
-                    {user.name.charAt(0).toUpperCase()}
+                  <div className="w-8 h-8 rounded-full bg-linear-to-br from-rose-deep to-gold-400 flex items-center justify-center text-white text-sm font-medium overflow-hidden">
+                    {user.profileImage ? (
+                      <img src={imageUrl(user.profileImage)} alt={user.name} className="w-full h-full object-cover" />
+                    ) : (
+                      <span>{user.name.charAt(0).toUpperCase()}</span>
+                    )}
                   </div>
-                  <span className="text-sm font-medium text-blue-500">{user.name.split(' ')[0]}</span>
+                  <span className="text-sm font-medium text-white">{user.name.split(' ')[0]}</span>
                 </button>
                 {userMenu && (
                   <>
@@ -155,12 +160,54 @@ export default function Navbar() {
             ))}
             {user ? (
               <>
-                <Link to="/dashboard" onClick={() => setOpen(false)} className="block py-3 text-sm font-medium text-white hover:text-green-500">{t('nav.dashboard')}</Link>
-                <Link to="/wallet" onClick={() => setOpen(false)} className="block py-3 text-sm font-medium text-white hover:text-green-500">{t('nav.wallet')}</Link>
-                {user.role === 'admin' && (
-                  <Link to="/admin" onClick={() => setOpen(false)} className="block py-3 text-sm font-medium text-white hover:text-green-500">{t('nav.adminDashboard')}</Link>
+                <div className="px-2 py-3 mb-2 border-b border-rose-soft/50">
+                  <div className="flex items-center gap-3">
+                    {user.profileImage ? (
+                      <img src={imageUrl(user.profileImage)} alt={user.name} className="w-10 h-10 rounded-full object-cover" />
+                    ) : (
+                      <div className="w-10 h-10 rounded-full bg-linear-to-br from-rose-deep to-gold-400 flex items-center justify-center text-white font-medium">
+                        {user.name.charAt(0).toUpperCase()}
+                      </div>
+                    )}
+                    <div className="min-w-0">
+                      <p className="text-sm font-semibold text-white truncate">{user.name}</p>
+                      <p className="text-xs text-gray-300 truncate">{user.email}</p>
+                      <p className="text-xs text-gold-400 mt-0.5">{t('nav.walletBalance')}: RM{((user.walletBalance || 0) + (user.walletBonus || 0)).toFixed(2)}</p>
+                    </div>
+                  </div>
+                </div>
+                {user.role === 'admin' ? (
+                  <Link to="/admin" onClick={() => setOpen(false)} className="flex items-center gap-3 py-3 text-sm font-medium text-white hover:text-green-500 transition-colors">
+                    <LayoutDashboard size={16} /> {t('nav.adminDashboard')}
+                  </Link>
+                ) : (
+                  <>
+                    <Link to="/dashboard" onClick={() => setOpen(false)} className="flex items-center gap-3 py-3 text-sm font-medium text-white hover:text-green-500 transition-colors">
+                      <LayoutDashboard size={16} /> {t('nav.dashboard')}
+                    </Link>
+                    <Link to="/bookings" onClick={() => setOpen(false)} className="flex items-center gap-3 py-3 text-sm font-medium text-white hover:text-green-500 transition-colors">
+                      <Calendar size={16} /> {t('nav.myBookings')}
+                    </Link>
+                    <Link to="/wallet" onClick={() => setOpen(false)} className="flex items-center gap-3 py-3 text-sm font-medium text-white hover:text-green-500 transition-colors">
+                      <Wallet size={16} /> {t('nav.wallet')}
+                    </Link>
+                    <Link to="/orders" onClick={() => setOpen(false)} className="flex items-center gap-3 py-3 text-sm font-medium text-white hover:text-green-500 transition-colors">
+                      <ShoppingBag size={16} /> {t('nav.orders')}
+                    </Link>
+                    <Link to="/coupons" onClick={() => setOpen(false)} className="flex items-center gap-3 py-3 text-sm font-medium text-white hover:text-green-500 transition-colors">
+                      <Gift size={16} /> {t('nav.coupons')}
+                    </Link>
+                    <Link to="/referral" onClick={() => setOpen(false)} className="flex items-center gap-3 py-3 text-sm font-medium text-white hover:text-green-500 transition-colors">
+                      <Users size={16} /> {t('nav.referralCenter')}
+                    </Link>
+                    <Link to="/profile" onClick={() => setOpen(false)} className="flex items-center gap-3 py-3 text-sm font-medium text-white hover:text-green-500 transition-colors">
+                      <User size={16} /> {t('nav.profile')}
+                    </Link>
+                  </>
                 )}
-                <button onClick={handleLogout} className="block py-3 text-sm font-medium text-red-500 w-full text-left">{t('common.logout')}</button>
+                <button onClick={handleLogout} className="flex items-center gap-3 py-3 text-sm font-medium text-red-400 w-full text-left">
+                  <LogOut size={16} /> {t('common.logout')}
+                </button>
               </>
             ) : (
               <div className="flex gap-3 pt-3">
