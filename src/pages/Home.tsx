@@ -5,7 +5,7 @@ import { Sparkles, Scissors, ShoppingBag, Gift, Users, ArrowRight, Star, Heart, 
 import { useTranslation } from 'react-i18next';
 import { serviceAPI, productAPI, promotionAPI } from '../api';
 import { ServiceCard, ProductCard, Spinner, PromotionIndicator } from '../components/ui';
-import KidneyCare from '../assets/KidneyCare.jpg';
+import KidneyCare from '../assets/Kidney-Care.jpg';
 import fn3Img from '../assets/fn3.jpg';
 import dubaiImg from '../assets/Dubai.jpg';
 import snowmanImg from '../assets/cute-snowman.jpg';
