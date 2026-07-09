@@ -515,7 +515,29 @@
     "removeAvatar": "Buang Avatar",
     "uploadingAvatar": "Memuat naik avatar...",
     "avatarUpdated": "Avatar dikemas kini!",
-    "avatarUpdateFailed": "Kemas kini avatar gagal"
+    "avatarUpdateFailed": "Kemas kini avatar gagal",
+    "doubleConfirm": {
+      "continue": "Teruskan",
+      "back": "Kembali",
+      "saveProfile": {
+        "title": "Sahkan Simpan Perubahan",
+        "message": "Sila semak perubahan profil anda sebelum menyimpan.",
+        "finalWarning": "Adakah anda pasti mahu menyimpan perubahan ini? Maklumat peribadi anda akan dikemas kini.",
+        "confirm": "Simpan Perubahan"
+      },
+      "updatePassword": {
+        "title": "Sahkan Kemas Kini Kata Laluan",
+        "message": "Sila semak sebelum mengemas kini kata laluan anda.",
+        "finalWarning": "Adakah anda pasti mahu menukar kata laluan? Anda perlu menggunakan kata laluan baharu untuk log masuk seterusnya.",
+        "confirm": "Kemas Kini Kata Laluan"
+      },
+      "removeAvatar": {
+        "title": "Sahkan Buang Avatar",
+        "message": "Gambar profil anda akan dibuang.",
+        "finalWarning": "Adakah anda pasti mahu membuang avatar secara kekal? Tindakan ini tidak boleh diundur.",
+        "confirm": "Buang Avatar"
+      }
+    }
   },
   "admin": {
     "layout": {

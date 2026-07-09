@@ -21,9 +21,19 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (response) => response,
   (error) => {
+    const status = error.response?.status;
     const message =
       error.response?.data?.message || error.message || 'Something went wrong';
-    return Promise.reject(new Error(message));
+    const err = new Error(message);
+    (err as Error & { status?: number }).status = status;
+
+    // If the token is invalid/expired, clear the persisted session so the app
+    // treats the user as logged out on the next reload / navigation.
+    if (status === 401) {
+      localStorage.removeItem('userInfo');
+    }
+
+    return Promise.reject(err);
   }
 );
 

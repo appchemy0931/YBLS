@@ -515,7 +515,29 @@
     "removeAvatar": "Supprimer l'avatar",
     "uploadingAvatar": "Téléchargement de l'avatar...",
     "avatarUpdated": "Avatar mis à jour !",
-    "avatarUpdateFailed": "Échec de la mise à jour de l'avatar"
+    "avatarUpdateFailed": "Échec de la mise à jour de l'avatar",
+    "doubleConfirm": {
+      "continue": "Continuer",
+      "back": "Retour",
+      "saveProfile": {
+        "title": "Confirmer l'enregistrement",
+        "message": "Veuillez vérifier vos modifications de profil avant d'enregistrer.",
+        "finalWarning": "Êtes-vous sûr de vouloir enregistrer ces modifications ? Vos informations personnelles seront mises à jour.",
+        "confirm": "Enregistrer les modifications"
+      },
+      "updatePassword": {
+        "title": "Confirmer la mise à jour du mot de passe",
+        "message": "Veuillez vérifier avant de mettre à jour votre mot de passe.",
+        "finalWarning": "Êtes-vous sûr de vouloir changer votre mot de passe ? Vous devrez utiliser le nouveau mot de passe pour les prochaines connexions.",
+        "confirm": "Mettre à jour le mot de passe"
+      },
+      "removeAvatar": {
+        "title": "Confirmer la suppression de l'avatar",
+        "message": "Votre photo de profil sera supprimée.",
+        "finalWarning": "Êtes-vous sûr de vouloir supprimer définitivement votre avatar ? Cette action est irréversible.",
+        "confirm": "Supprimer l'avatar"
+      }
+    }
   },
   "admin": {
     "layout": {

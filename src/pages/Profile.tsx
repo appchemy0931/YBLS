@@ -7,6 +7,7 @@ import { authAPI, uploadAPI } from '../api';
 import { useAuth } from '../context/AuthContext';
 import { Button } from '../components/ui';
 import { imageUrl } from '../utils/image';
+import DoubleConfirmModal from '../components/DoubleConfirmModal';
 
 export default function Profile() {
   const { user, updateUser } = useAuth();
@@ -14,6 +15,9 @@ export default function Profile() {
   const [pwForm, setPwForm] = useState({ currentPassword: '', newPassword: '', confirmPassword: '' });
   const [showPwSection, setShowPwSection] = useState(false);
   const [uploadingAvatar, setUploadingAvatar] = useState(false);
+  const [showSaveConfirm, setShowSaveConfirm] = useState(false);
+  const [showPwConfirm, setShowPwConfirm] = useState(false);
+  const [showRemoveAvatarConfirm, setShowRemoveAvatarConfirm] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { t } = useTranslation();
 
@@ -46,7 +50,7 @@ export default function Profile() {
 
   const handleProfile = (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
-    updateMutation.mutate();
+    setShowSaveConfirm(true);
   };
 
   const handlePassword = (e: React.SyntheticEvent<HTMLFormElement>) => {
@@ -59,7 +63,7 @@ export default function Profile() {
       toast.error(t('profile.passwordMinLength'));
       return;
     }
-    pwMutation.mutate();
+    setShowPwConfirm(true);
   };
 
   const handleAvatarUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -78,10 +82,11 @@ export default function Profile() {
   };
 
   const handleRemoveAvatar = () => {
-    avatarMutation.mutate('');
+    setShowRemoveAvatarConfirm(true);
   };
 
   const avatarSrc = imageUrl(user?.profileImage);
+  const avatarKey = user?.profileImage || 'default';
 
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -93,7 +98,7 @@ export default function Profile() {
           <div className="relative group">
             <div className="w-24 h-24 rounded-full bg-linear-to-br from-rose-deep to-gold-400 flex items-center justify-center text-white text-3xl font-bold overflow-hidden ring-2 ring-rose-soft">
               {avatarSrc ? (
-                <img src={avatarSrc} alt={user?.name} className="w-full h-full object-cover" />
+                <img key={avatarKey} src={avatarSrc} alt={user?.name} className="w-full h-full object-cover" />
               ) : (
                 <span>{user?.name?.charAt(0).toUpperCase()}</span>
               )}
@@ -215,6 +220,55 @@ export default function Profile() {
           </form>
         )}
       </div>
+
+      <DoubleConfirmModal
+        open={showSaveConfirm}
+        onClose={() => setShowSaveConfirm(false)}
+        onConfirm={() => updateMutation.mutate()}
+        title={t('profile.doubleConfirm.saveProfile.title')}
+        message={t('profile.doubleConfirm.saveProfile.message')}
+        finalWarning={t('profile.doubleConfirm.saveProfile.finalWarning')}
+        confirmLabel={t('profile.doubleConfirm.saveProfile.confirm')}
+        cancelLabel={t('confirmModal.cancel')}
+        continueLabel={t('profile.doubleConfirm.continue')}
+        processingLabel={t('profile.saving')}
+        isLoading={updateMutation.isPending}
+        confirmVariant="gold"
+        details={[
+          { label: t('profile.fullName'), value: form.name },
+          { label: t('profile.phoneNumber'), value: form.phone || '-' },
+        ]}
+      />
+
+      <DoubleConfirmModal
+        open={showPwConfirm}
+        onClose={() => setShowPwConfirm(false)}
+        onConfirm={() => pwMutation.mutate()}
+        title={t('profile.doubleConfirm.updatePassword.title')}
+        message={t('profile.doubleConfirm.updatePassword.message')}
+        finalWarning={t('profile.doubleConfirm.updatePassword.finalWarning')}
+        confirmLabel={t('profile.doubleConfirm.updatePassword.confirm')}
+        cancelLabel={t('confirmModal.cancel')}
+        continueLabel={t('profile.doubleConfirm.continue')}
+        processingLabel={t('profile.updating')}
+        isLoading={pwMutation.isPending}
+        confirmVariant="primary"
+      />
+
+      <DoubleConfirmModal
+        open={showRemoveAvatarConfirm}
+        onClose={() => setShowRemoveAvatarConfirm(false)}
+        onConfirm={() => avatarMutation.mutate('')}
+        title={t('profile.doubleConfirm.removeAvatar.title')}
+        message={t('profile.doubleConfirm.removeAvatar.message')}
+        finalWarning={t('profile.doubleConfirm.removeAvatar.finalWarning')}
+        confirmLabel={t('profile.doubleConfirm.removeAvatar.confirm')}
+        cancelLabel={t('confirmModal.cancel')}
+        continueLabel={t('profile.doubleConfirm.continue')}
+        processingLabel={t('profile.saving')}
+        isLoading={avatarMutation.isPending}
+        confirmVariant="danger"
+      />
     </div>
   );
 }

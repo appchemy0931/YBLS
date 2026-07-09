@@ -515,7 +515,29 @@
     "removeAvatar": "Xóa ảnh đại diện",
     "uploadingAvatar": "Đang tải ảnh đại diện...",
     "avatarUpdated": "Đã cập nhật ảnh đại diện!",
-    "avatarUpdateFailed": "Cập nhật ảnh đại diện thất bại"
+    "avatarUpdateFailed": "Cập nhật ảnh đại diện thất bại",
+    "doubleConfirm": {
+      "continue": "Tiếp tục",
+      "back": "Quay lại",
+      "saveProfile": {
+        "title": "Xác nhận lưu thay đổi",
+        "message": "Vui lòng xem lại các thay đổi hồ sơ trước khi lưu.",
+        "finalWarning": "Bạn có chắc muốn lưu các thay đổi này? Thông tin cá nhân của bạn sẽ được cập nhật.",
+        "confirm": "Lưu thay đổi"
+      },
+      "updatePassword": {
+        "title": "Xác nhận cập nhật mật khẩu",
+        "message": "Vui lòng xem lại trước khi cập nhật mật khẩu.",
+        "finalWarning": "Bạn có chắc muốn đổi mật khẩu? Bạn sẽ cần dùng mật khẩu mới cho các lần đăng nhập sau.",
+        "confirm": "Cập nhật mật khẩu"
+      },
+      "removeAvatar": {
+        "title": "Xác nhận xóa ảnh đại diện",
+        "message": "Ảnh đại diện của bạn sẽ bị xóa.",
+        "finalWarning": "Bạn có chắc muốn xóa vĩnh viễn ảnh đại diện? Hành động này không thể hoàn tác.",
+        "confirm": "Xóa ảnh đại diện"
+      }
+    }
   },
   "admin": {
     "layout": {

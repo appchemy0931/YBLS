@@ -140,7 +140,7 @@ export default function Home() {
                   </span>
                 </div> */}
 
-                <div className="absolute bottom-0 left-0 right-0 p-6 text-white" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.8)' }}>
+                {/* <div className="absolute bottom-0 left-0 right-0 p-6 text-white" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.8)' }}>
                   <div key={`cap-${slide}`} className="animate-slide-up">
                     <h3 className="text-2xl font-bold" style={{ fontFamily: 'Playfair Display, serif' }}>{t('home.slides.' + slide + '.title')}</h3>
                     <p className="text-sm text-gray-200 mt-1">{t('home.slides.' + slide + '.desc')}</p>
@@ -155,7 +155,7 @@ export default function Home() {
                       />
                     ))}
                   </div>
-                </div>
+                </div> */}
               </div>
 
               <div className="absolute -bottom-15 -right-6 bg-white rounded-2xl p-4 shadow-xl flex items-center gap-3 animate-float">

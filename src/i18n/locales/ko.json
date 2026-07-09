@@ -515,7 +515,29 @@
     "removeAvatar": "아바타 제거",
     "uploadingAvatar": "아바타 업로드 중...",
     "avatarUpdated": "아바타가 업데이트되었습니다!",
-    "avatarUpdateFailed": "아바타 업데이트 실패"
+    "avatarUpdateFailed": "아바타 업데이트 실패",
+    "doubleConfirm": {
+      "continue": "계속",
+      "back": "뒤로",
+      "saveProfile": {
+        "title": "변경사항 저장 확인",
+        "message": "저장하기 전에 프로필 변경사항을 확인하세요.",
+        "finalWarning": "이 변경사항을 저장하시겠습니까? 개인 정보가 업데이트됩니다.",
+        "confirm": "변경사항 저장"
+      },
+      "updatePassword": {
+        "title": "비밀번호 업데이트 확인",
+        "message": "비밀번호 업데이트 전에 확인하세요.",
+        "finalWarning": "비밀번호를 변경하시겠습니까? 향후 로그인 시 새 비밀번호를 사용해야 합니다.",
+        "confirm": "비밀번호 업데이트"
+      },
+      "removeAvatar": {
+        "title": "아바타 제거 확인",
+        "message": "프로필 사진이 제거됩니다.",
+        "finalWarning": "아바타를 영구적으로 제거하시겠습니까? 이 작업은 되돌릴 수 없습니다.",
+        "confirm": "아바타 제거"
+      }
+    }
   },
   "admin": {
     "layout": {

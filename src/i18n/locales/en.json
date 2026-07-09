@@ -515,7 +515,29 @@
     "removeAvatar": "Remove Avatar",
     "uploadingAvatar": "Uploading avatar...",
     "avatarUpdated": "Avatar updated!",
-    "avatarUpdateFailed": "Avatar update failed"
+    "avatarUpdateFailed": "Avatar update failed",
+    "doubleConfirm": {
+      "continue": "Continue",
+      "back": "Back",
+      "saveProfile": {
+        "title": "Confirm Save Changes",
+        "message": "Please review your profile changes before saving.",
+        "finalWarning": "Are you sure you want to save these changes to your profile? This will update your personal information.",
+        "confirm": "Save Changes"
+      },
+      "updatePassword": {
+        "title": "Confirm Password Update",
+        "message": "Please review before updating your password.",
+        "finalWarning": "Are you sure you want to change your password? You will need to use your new password for future logins.",
+        "confirm": "Update Password"
+      },
+      "removeAvatar": {
+        "title": "Confirm Remove Avatar",
+        "message": "Your profile picture will be removed.",
+        "finalWarning": "Are you sure you want to permanently remove your avatar? This action cannot be undone.",
+        "confirm": "Remove Avatar"
+      }
+    }
   },
   "admin": {
     "layout": {
