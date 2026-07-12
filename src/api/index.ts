@@ -12,6 +12,7 @@ import type {
   TimeSlot,
   RankingTier,
   RankingPurchase,
+  Testimonial,
 } from '../types';
 
 export const uploadAPI = {
@@ -71,6 +72,7 @@ export const bookingAPI = {
 
 export const productAPI = {
   getAll: (category?: string) => api.get<{ products: Product[]; categories: string[] }>('/products', { params: { category } }),
+  getAllAdmin: () => api.get<{ products: Product[]; categories: string[] }>('/products/admin/all'),
   getById: (id: string) => api.get<{ product: Product }>(`/products/${id}`),
   create: (data: Partial<Product>) => api.post<{ product: Product }>('/products', data),
   update: (id: string, data: Partial<Product>) => api.put<{ product: Product }>(`/products/${id}`, data),
@@ -78,7 +80,7 @@ export const productAPI = {
 };
 
 export const orderAPI = {
-  create: (data: { items: { productId: string; qty: number }[]; shippingAddress?: string; payFromWallet?: boolean }) =>
+  create: (data: { items: { productId: string; qty: number; weightLabel?: string }[]; shippingAddress?: string; payFromWallet?: boolean }) =>
     api.post<{ order: Order }>('/orders', data),
   getMy: () => api.get<{ orders: Order[] }>('/orders/my'),
   getById: (id: string) => api.get<{ order: Order }>(`/orders/${id}`),
@@ -135,4 +137,13 @@ export const adminAPI = {
   changeUserPassword: (id: string, data: { newPassword: string }) => api.put(`/admin/users/${id}/password`, data),
   deleteUser: (id: string) => api.delete(`/admin/users/${id}`),
   getReport: (range?: { from?: string; to?: string }) => api.get('/admin/report', { params: range }),
+};
+
+export const testimonialAPI = {
+  getAll: () => api.get<{ testimonials: Testimonial[] }>('/testimonials'),
+  getAllAdmin: () => api.get<{ testimonials: Testimonial[] }>('/testimonials/admin/all'),
+  getById: (id: string) => api.get<{ testimonial: Testimonial }>(`/testimonials/${id}`),
+  create: (data: Partial<Testimonial>) => api.post<{ testimonial: Testimonial }>('/testimonials', data),
+  update: (id: string, data: Partial<Testimonial>) => api.put<{ testimonial: Testimonial }>(`/testimonials/${id}`, data),
+  delete: (id: string) => api.delete(`/testimonials/${id}`),
 };

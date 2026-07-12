@@ -2,7 +2,7 @@ import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import {
   LayoutDashboard, Users, Scissors, Calendar, Package, Gift,
-  Wallet, Users2, Menu, X, LogOut, ShoppingBag, Crown, Tag, FileText
+  Wallet, Users2, Menu, X, LogOut, ShoppingBag, Crown, Tag, FileText, MessageSquare
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useTranslation } from 'react-i18next';
@@ -23,6 +23,7 @@ export default function AdminLayout() {
     { to: '/admin/wallet', label: t('admin.layout.transactions'), icon: Wallet },
     { to: '/admin/referrals', label: t('admin.layout.referrals'), icon: Users2 },
     { to: '/admin/rankings', label: t('admin.layout.rankings'), icon: Crown },
+    { to: '/admin/testimonials', label: 'Testimonials', icon: MessageSquare },
     { to: '/admin/report', label: t('admin.layout.report'), icon: FileText },
   ];
   const { user, logout } = useAuth();

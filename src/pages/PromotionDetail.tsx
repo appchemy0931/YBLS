@@ -103,7 +103,7 @@ export default function PromotionDetail() {
           <img
             src={imageUrl(promotion?.image) || 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=800'}
             alt={promotion?.title}
-            className="w-full h-80 lg:h-full object-cover"
+            className="w-full h-full lg:h-full object-cover"
           />
           {promotion?.discount ? (
             <span className="absolute top-4 right-4 bg-rose-deep text-white text-xl font-bold px-3 py-1.5 rounded-full shadow-lg">

@@ -92,7 +92,7 @@ export default function Dashboard() {
               <p className="text-sm text-gray-500">{t('dashboard.rankingDesc')}</p>
             </div>
           </div>
-          <Badge variant={currentRanking > 0 ? 'info' : 'default'}>
+          <Badge variant={currentRanking > 0 ? 'blue' : 'default'}>
             {currentRanking > 0 ? t('dashboard.currentRanking', { tier: currentRanking }) : t('dashboard.noRanking')}
           </Badge>
         </div>
@@ -125,7 +125,7 @@ export default function Dashboard() {
                         />
                       ))}
                     </div>
-                    {isCurrent && <Badge variant="info">{t('dashboard.current')}</Badge>}
+                    {isCurrent && <Badge variant="blue">{t('dashboard.current')}</Badge>}
                   </div>
                   <h3 className="text-lg font-semibold text-gray-800">{tier.name}</h3>
                   <p className="text-xs text-gray-400 mb-3">{t('dashboard.starMember', { stars: tier.stars })}</p>

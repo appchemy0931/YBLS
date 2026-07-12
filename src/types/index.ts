@@ -60,6 +60,12 @@ export interface Booking {
   createdAt: string;
 }
 
+export interface WeightVariant {
+  label: string;
+  stock: number;
+  price: number;
+}
+
 export interface Product {
   _id: string;
   name: string;
@@ -69,6 +75,7 @@ export interface Product {
   image: string;
   category: 'Skincare' | 'Beauty Product' | 'Treatment Product';
   status: 'active' | 'inactive';
+  weights?: WeightVariant[];
 }
 
 export interface OrderItem {
@@ -77,6 +84,7 @@ export interface OrderItem {
   price: number;
   qty: number;
   image: string;
+  weightLabel?: string;
 }
 
 export interface Order {
@@ -153,4 +161,12 @@ export interface RankingPurchase {
 export interface CartItem {
   product: Product;
   qty: number;
+  weightVariant?: WeightVariant;
+}
+
+export interface Testimonial {
+  _id: string;
+  image: string;
+  status: 'active' | 'inactive';
+  createdAt?: string;
 }

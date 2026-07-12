@@ -41,6 +41,7 @@ import AdminWallet from './pages/admin/AdminWallet';
 import AdminReferrals from './pages/admin/AdminReferrals';
 import AdminRanking from './pages/admin/AdminRanking';
 import AdminReport from './pages/admin/AdminReport';
+import AdminTestimonials from './pages/admin/AdminTestimonials';
 
 export default function App() {
   return (
@@ -88,6 +89,7 @@ export default function App() {
             <Route path="wallet" element={<AdminWallet />} />
             <Route path="referrals" element={<AdminReferrals />} />
             <Route path="rankings" element={<AdminRanking />} />
+            <Route path="testimonials" element={<AdminTestimonials />} />
             <Route path="report" element={<AdminReport />} />
           </Route>
         </Routes>

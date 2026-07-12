@@ -137,10 +137,22 @@
     "premiumQuality": "Qualité premium",
     "certifiedExperts": "Experts certifiés",
     "features": {
-      "expert": { "title": "Services d'experts", "desc": "Soins de beauté professionnels" },
-      "premium": { "title": "Produits premium", "desc": "Essentiels de beauté sélectionnés" },
-      "personal": { "title": "Soins personnalisés", "desc": "Adaptés à vos besoins" },
-      "reward": { "title": "Programme de récompenses", "desc": "Gagnez pendant que vous vous faites plaisir" }
+      "expert": {
+        "title": "Services d'experts",
+        "desc": "Soins de beauté professionnels"
+      },
+      "premium": {
+        "title": "Produits premium",
+        "desc": "Essentiels de beauté sélectionnés"
+      },
+      "personal": {
+        "title": "Soins personnalisés",
+        "desc": "Adaptés à vos besoins"
+      },
+      "reward": {
+        "title": "Programme de récompenses",
+        "desc": "Gagnez pendant que vous vous faites plaisir"
+      }
     },
     "services": {
       "eyebrow": "Nos services",
@@ -167,11 +179,35 @@
       "empty": "Aucune promotion disponible pour le moment."
     },
     "slides": {
-      "0": { "title": "Coiffure", "desc": "Coupes & couleurs signature par des stylistes certifiés", "promo": "Les nouveaux clients reçoivent un bonus de portefeuille de RM100" },
-      "1": { "title": "Soin du visage", "desc": "Soins pour une peau éclatante et radieuse", "promo": "Gagnez 5% de récompenses de parrainage sur les achats de classement" },
-      "2": { "title": "Art des ongles", "desc": "Manucures & pédicures créatives", "promo": "Payez 50% solde + 50% bonus sur les services" },
-      "3": { "title": "Spa & Massage", "desc": "Détendez-vous & régénérez votre corps", "promo": "Parrainez des amis & gagnez des récompenses multi-niveaux" },
-      "4": { "title": "Éclat d'hiver", "desc": "Soins saisonniers pour une peau éclatante en hiver", "promo": "Parrainez des amis & gagnez des récompenses multi-niveaux" }
+      "0": {
+        "title": "Coiffure",
+        "desc": "Coupes & couleurs signature par des stylistes certifiés",
+        "promo": "Les nouveaux clients reçoivent un bonus de portefeuille de RM100"
+      },
+      "1": {
+        "title": "Soin du visage",
+        "desc": "Soins pour une peau éclatante et radieuse",
+        "promo": "Gagnez 5% de récompenses de parrainage sur les achats de classement"
+      },
+      "2": {
+        "title": "Art des ongles",
+        "desc": "Manucures & pédicures créatives",
+        "promo": "Payez 50% solde + 50% bonus sur les services"
+      },
+      "3": {
+        "title": "Spa & Massage",
+        "desc": "Détendez-vous & régénérez votre corps",
+        "promo": "Parrainez des amis & gagnez des récompenses multi-niveaux"
+      },
+      "4": {
+        "title": "Éclat d'hiver",
+        "desc": "Soins saisonniers pour une peau éclatante en hiver",
+        "promo": "Parrainez des amis & gagnez des récompenses multi-niveaux"
+      }
+    },
+    "testimonials": {
+      "eyebrow": "Témoignages",
+      "title": "Avis clients"
     }
   },
   "ui": {
@@ -366,13 +402,27 @@
     "noAppointmentsMsg": "Vos réservations apparaîtront ici.",
     "more": "+{{count}} de plus",
     "months": {
-      "0": "Janvier", "1": "Février", "2": "Mars", "3": "Avril",
-      "4": "Mai", "5": "Juin", "6": "Juillet", "7": "Août",
-      "8": "Septembre", "9": "Octobre", "10": "Novembre", "11": "Décembre"
+      "0": "Janvier",
+      "1": "Février",
+      "2": "Mars",
+      "3": "Avril",
+      "4": "Mai",
+      "5": "Juin",
+      "6": "Juillet",
+      "7": "Août",
+      "8": "Septembre",
+      "9": "Octobre",
+      "10": "Novembre",
+      "11": "Décembre"
     },
     "days": {
-      "sun": "Dim", "mon": "Lun", "tue": "Mar", "wed": "Mer",
-      "thu": "Jeu", "fri": "Ven", "sat": "Sam"
+      "sun": "Dim",
+      "mon": "Lun",
+      "tue": "Mar",
+      "wed": "Mer",
+      "thu": "Jeu",
+      "fri": "Ven",
+      "sat": "Sam"
     }
   },
   "wallet": {

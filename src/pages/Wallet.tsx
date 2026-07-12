@@ -93,7 +93,7 @@ export default function Wallet() {
         <div className="bg-linear-to-br from-gold-100 to-blush-100 rounded-2xl p-6">
           <div className="flex items-center justify-between mb-3">
             <Crown size={24} className="text-gold-600" />
-            <Badge variant={currentRanking > 0 ? 'info' : 'default'}>
+            <Badge variant={currentRanking > 0 ? 'blue' : 'default'}>
               {currentRanking > 0 ? t('dashboard.currentRanking', { tier: currentRanking }) : t('dashboard.noRanking')}
             </Badge>
           </div>

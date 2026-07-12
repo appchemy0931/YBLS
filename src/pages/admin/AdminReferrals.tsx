@@ -85,7 +85,7 @@ export default function AdminReferrals() {
                   </td>
                   <td className="px-4 py-3 text-gray-500 font-mono text-xs">{r.referralCode}</td>
                   <td className="px-4 py-3">
-                    <Badge variant={r.level === 1 ? 'success' : r.level === 2 ? 'info' : 'warning'}>{t('admin.referrals.levelBadge', { n: r.level })}</Badge>
+                    <Badge variant={r.level === 1 ? 'success' : r.level === 2 ? 'blue' : 'warning'}>{t('admin.referrals.levelBadge', { n: r.level })}</Badge>
                   </td>
                   <td className="px-4 py-3 font-bold text-green-600">+{r.reward.toFixed(2)}</td>
                   <td className="px-4 py-3 text-xs text-gray-400">{new Date(r.createdAt).toLocaleDateString()}</td>

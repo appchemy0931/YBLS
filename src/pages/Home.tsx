@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { Sparkles, Scissors, ShoppingBag, Gift, Users, ArrowRight, Star, Heart, Award, Tag, X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Sparkles, Scissors, ShoppingBag, Gift, Users, ArrowRight, Star, Heart, Award, Tag, X, ChevronLeft, ChevronRight, Quote } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { serviceAPI, productAPI, promotionAPI } from '../api';
+import { serviceAPI, productAPI, promotionAPI, testimonialAPI } from '../api';
 import { ServiceCard, ProductCard, Spinner, PromotionIndicator } from '../components/ui';
 import KidneyCare from '../assets/Kidney-Care.jpg';
 import jinLuo from '../assets/jinluo.jpg';
@@ -34,6 +34,10 @@ export default function Home() {
     queryKey: ['promotions-home'],
     queryFn: () => promotionAPI.getAll().then((r) => r.data),
   });
+  const { data: testimonialData } = useQuery({
+    queryKey: ['testimonials-home'],
+    queryFn: () => testimonialAPI.getAll().then((r) => r.data),
+  });
 
   const navigate = useNavigate();
   const handleClaimPromo = (promoId: string) => navigate(`/promotions/${promoId}`);
@@ -44,6 +48,16 @@ export default function Home() {
 
   const [slide, setSlide] = useState(0);
   const [lightbox, setLightbox] = useState(false);
+  const [testimonialImage, setTestimonialImage] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!testimonialImage) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setTestimonialImage(null);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [testimonialImage]);
   useEffect(() => {
     const t = setTimeout(() => setSlide((s) => (s + 1) % heroSlides.length), 3500);
     return () => clearTimeout(t);
@@ -309,6 +323,34 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Testimonials */}
+      {(testimonialData?.testimonials || []).length > 0 && (
+        <section className="py-16 bg-blush-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-10">
+              <span className="inline-flex items-center gap-2 text-gold-500 text-sm font-medium tracking-wider uppercase">
+                <Quote size={16} /> {t('home.testimonials.eyebrow')}
+              </span>
+              <h2 className="text-3xl lg:text-4xl font-bold text-gray-800 mt-2" style={{ fontFamily: 'Playfair Display, serif' }}>
+                {t('home.testimonials.title')}
+              </h2>
+            </div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {(testimonialData?.testimonials || []).slice(0, 6).map((t) => (
+                <div key={t._id} className="bg-white rounded-2xl overflow-hidden card-shadow card-shadow-hover">
+                  <img
+                    src={imageUrl(t.image)}
+                    alt="Testimonial"
+                    onClick={() => setTestimonialImage(imageUrl(t.image))}
+                    className="w-full h-90 object-cover cursor-zoom-in hover:opacity-90 transition-opacity"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {lightbox && (
         <div
           className="fixed inset-0 z-100 bg-black/90 flex items-center justify-center animate-[fade-in_0.2s_ease-out]"
@@ -354,6 +396,27 @@ export default function Home() {
               />
             ))}
           </div>
+        </div>
+      )}
+      {testimonialImage && (
+        <div
+          className="fixed inset-0 z-100 bg-black/90 flex items-center justify-center animate-[fade-in_0.2s_ease-out]"
+          onClick={() => setTestimonialImage(null)}
+        >
+          <button
+            type="button"
+            aria-label="Close"
+            className="absolute top-5 right-5 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors"
+            onClick={(e) => { e.stopPropagation(); setTestimonialImage(null); }}
+          >
+            <X size={26} />
+          </button>
+          <img
+            src={testimonialImage}
+            alt="Testimonial"
+            className="max-w-[90vw] max-h-[90vh] object-contain rounded-lg shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          />
         </div>
       )}
     </div>

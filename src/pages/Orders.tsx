@@ -59,7 +59,7 @@ export default function Orders() {
                   <div key={i} className="flex items-center gap-3">
                     <img src={imageUrl(item.image)} alt={item.name} className="w-12 h-12 rounded-lg object-cover" />
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-gray-800 truncate">{item.name}</p>
+                      <p className="text-sm font-medium text-gray-800 truncate">{item.name}{item.weightLabel ? ` (${item.weightLabel})` : ''}</p>
                       <p className="text-xs text-gray-400">{t('orders.qty', { qty: item.qty, price: item.price.toFixed(2) })}</p>
                     </div>
                     <span className="text-sm font-medium text-gray-600">RM{(item.price * item.qty).toFixed(2)}</span>

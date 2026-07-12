@@ -5,7 +5,7 @@ import { Check, CreditCard, Wallet, ShoppingBag } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { orderAPI, walletAPI } from '../api';
-import { useCart } from '../context/CartContext';
+import { useCart, itemPrice } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import { Button } from '../components/ui';
 import ConfirmModal from '../components/ConfirmModal';
@@ -23,7 +23,7 @@ export default function Checkout() {
   const createOrder = useMutation({
     mutationFn: () =>
       orderAPI.create({
-        items: cart.map((item) => ({ productId: item.product._id, qty: item.qty })),
+        items: cart.map((item) => ({ productId: item.product._id, qty: item.qty, weightLabel: item.weightVariant?.label })),
         shippingAddress: address,
         payFromWallet,
       }),
@@ -102,12 +102,16 @@ export default function Checkout() {
         <div className="bg-white rounded-2xl p-6 card-shadow h-fit">
           <h2 className="text-lg font-semibold text-gray-800 mb-4">{t('checkout.orderSummary')}</h2>
           <div className="space-y-2 mb-4">
-            {cart.map((item) => (
-              <div key={item.product._id} className="flex justify-between text-sm text-gray-500">
-                <span className="truncate mr-2">{item.product.name} × {item.qty}</span>
-                <span>RM{(item.product.price * item.qty).toFixed(2)}</span>
-              </div>
-            ))}
+            {cart.map((item) => {
+              const wLabel = item.weightVariant?.label;
+              const price = itemPrice(item);
+              return (
+                <div key={`${item.product._id}-${wLabel || 'default'}`} className="flex justify-between text-sm text-gray-500">
+                  <span className="truncate mr-2">{item.product.name}{wLabel ? ` (${wLabel})` : ''} × {item.qty}</span>
+                  <span>RM{(price * item.qty).toFixed(2)}</span>
+                </div>
+              );
+            })}
           </div>
           <div className="border-t border-gray-100 pt-4 mb-5">
             <div className="flex justify-between items-center">
@@ -137,7 +141,7 @@ export default function Checkout() {
         details={[
           {
             label: t('confirmModal.items'),
-            value: cart.map((i) => `${i.product.name} × ${i.qty}`).join(', '),
+            value: cart.map((i) => `${i.product.name}${i.weightVariant?.label ? ` (${i.weightVariant.label})` : ''} × ${i.qty}`).join(', '),
           },
           {
             label: t('confirmModal.shippingAddress'),

@@ -33,7 +33,7 @@ export default function AdminOrders() {
     status: 'Pending',
     shippingAddress: '',
     totalAmount: '',
-    items: [] as { productId: string; name: string; price: string; qty: string; image: string }[],
+    items: [] as { productId: string; name: string; price: string; qty: string; image: string; weightLabel: string }[],
     reason: '',
   });
   const queryClient = useQueryClient();
@@ -55,7 +55,7 @@ export default function AdminOrders() {
   });
 
   const updateOrder = useMutation({
-    mutationFn: ({ id, payload }: { id: string; payload: { status: string; shippingAddress: string; totalAmount: number; items: { productId: string; name: string; price: number; qty: number; image: string }[]; reason?: string } }) =>
+    mutationFn: ({ id, payload }: { id: string; payload: { status: string; shippingAddress: string; totalAmount: number; items: { productId: string; name: string; price: number; qty: number; image: string; weightLabel?: string }[]; reason?: string } }) =>
       orderAPI.update(id, payload),
     onSuccess: (res) => {
       toast.success('Order saved to database');
@@ -89,6 +89,7 @@ export default function AdminOrders() {
         price: String(it.price),
         qty: String(it.qty),
         image: it.image,
+        weightLabel: it.weightLabel || '',
       })),
       reason: '',
     });
@@ -120,6 +121,7 @@ export default function AdminOrders() {
         price: Number(it.price) || 0,
         qty: Number(it.qty) || 1,
         image: it.image,
+        weightLabel: it.weightLabel || '',
       })),
       ...(editForm.status === 'Cancelled' ? { reason: editForm.reason.trim() } : {}),
     };
@@ -381,6 +383,7 @@ export default function AdminOrders() {
                         />
                         <div className="flex-1 min-w-0">
                           <p className="text-sm font-medium text-gray-800 truncate">{item.name}</p>
+                          {item.weightLabel && <p className="text-xs text-gray-400">{item.weightLabel}</p>}
                           <div className="flex items-center gap-2 mt-1">
                             <div className="flex items-center gap-1">
                               <span className="text-xs text-gray-400">RM</span>
@@ -476,7 +479,7 @@ export default function AdminOrders() {
                           className="w-14 h-14 rounded-lg object-cover bg-blush-50 shrink-0"
                         />
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium text-gray-800 truncate">{item.name}</p>
+                          <p className="text-sm font-medium text-gray-800 truncate">{item.name}{item.weightLabel ? ` (${item.weightLabel})` : ''}</p>
                           <p className="text-xs text-gray-400">RM{item.price.toFixed(2)} x {item.qty}</p>
                         </div>
                         <p className="text-sm font-semibold text-gray-700">RM{(item.price * item.qty).toFixed(2)}</p>

@@ -137,10 +137,22 @@
     "premiumQuality": "Kualiti Premium",
     "certifiedExperts": "Pakar Bertauliah",
     "features": {
-      "expert": { "title": "Perkhidmatan Pakar", "desc": "Rawatan kecantikan profesional" },
-      "premium": { "title": "Produk Premium", "desc": "Keperluan kecantikan terpilih" },
-      "personal": { "title": "Penjagaan Peribadi", "desc": "Disesuaikan dengan keperluan anda" },
-      "reward": { "title": "Program Ganjaran", "desc": "Dapatkan ganjaran sambil menikmati" }
+      "expert": {
+        "title": "Perkhidmatan Pakar",
+        "desc": "Rawatan kecantikan profesional"
+      },
+      "premium": {
+        "title": "Produk Premium",
+        "desc": "Keperluan kecantikan terpilih"
+      },
+      "personal": {
+        "title": "Penjagaan Peribadi",
+        "desc": "Disesuaikan dengan keperluan anda"
+      },
+      "reward": {
+        "title": "Program Ganjaran",
+        "desc": "Dapatkan ganjaran sambil menikmati"
+      }
     },
     "services": {
       "eyebrow": "Perkhidmatan Kami",
@@ -167,11 +179,35 @@
       "empty": "Tiada promosi tersedia buat masa ini."
     },
     "slides": {
-      "0": { "title": "Gaya Rambut", "desc": "Potongan & warna tanda tangan oleh stylists bertauliah", "promo": "Pelanggan baharu dapat bonus dompet RM100" },
-      "1": { "title": "Penjagaan Wajah", "desc": "Rawatan kulit yang berseri dan bercahaya", "promo": "Dapatkan 5% ganjaran rujukan untuk pembelian ranking" },
-      "2": { "title": "Seni Kuku", "desc": "Manikur & pedikur kreatif", "promo": "Bayar 50% baki + 50% bonus untuk perkhidmatan" },
-      "3": { "title": "Spa & Urut", "desc": "Santai & segarkan semula badan anda", "promo": "Rujuk rakan & dapatkan ganjaran berbilang tahap" },
-      "4": { "title": "Kecerahan Musim Sejuk", "desc": "Rawatan bermusim untuk kulit berseri musim sejuk", "promo": "Rujuk rakan & dapatkan ganjaran berbilang tahap" }
+      "0": {
+        "title": "Gaya Rambut",
+        "desc": "Potongan & warna tanda tangan oleh stylists bertauliah",
+        "promo": "Pelanggan baharu dapat bonus dompet RM100"
+      },
+      "1": {
+        "title": "Penjagaan Wajah",
+        "desc": "Rawatan kulit yang berseri dan bercahaya",
+        "promo": "Dapatkan 5% ganjaran rujukan untuk pembelian ranking"
+      },
+      "2": {
+        "title": "Seni Kuku",
+        "desc": "Manikur & pedikur kreatif",
+        "promo": "Bayar 50% baki + 50% bonus untuk perkhidmatan"
+      },
+      "3": {
+        "title": "Spa & Urut",
+        "desc": "Santai & segarkan semula badan anda",
+        "promo": "Rujuk rakan & dapatkan ganjaran berbilang tahap"
+      },
+      "4": {
+        "title": "Kecerahan Musim Sejuk",
+        "desc": "Rawatan bermusim untuk kulit berseri musim sejuk",
+        "promo": "Rujuk rakan & dapatkan ganjaran berbilang tahap"
+      }
+    },
+    "testimonials": {
+      "eyebrow": "Testimoni",
+      "title": "Testimoni Klien"
     }
   },
   "ui": {
@@ -366,13 +402,27 @@
     "noAppointmentsMsg": "Tempahan anda akan dipaparkan di sini.",
     "more": "+{{count}} lagi",
     "months": {
-      "0": "Januari", "1": "Februari", "2": "Mac", "3": "April",
-      "4": "Mei", "5": "Jun", "6": "Julai", "7": "Ogos",
-      "8": "September", "9": "Oktober", "10": "November", "11": "Disember"
+      "0": "Januari",
+      "1": "Februari",
+      "2": "Mac",
+      "3": "April",
+      "4": "Mei",
+      "5": "Jun",
+      "6": "Julai",
+      "7": "Ogos",
+      "8": "September",
+      "9": "Oktober",
+      "10": "November",
+      "11": "Disember"
     },
     "days": {
-      "sun": "Ahad", "mon": "Isn", "tue": "Sel", "wed": "Rab",
-      "thu": "Kha", "fri": "Jum", "sat": "Sab"
+      "sun": "Ahad",
+      "mon": "Isn",
+      "tue": "Sel",
+      "wed": "Rab",
+      "thu": "Kha",
+      "fri": "Jum",
+      "sat": "Sab"
     }
   },
   "wallet": {

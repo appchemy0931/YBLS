@@ -309,7 +309,7 @@ function SectionTable({
           {open ? <ChevronDown size={18} className="text-gray-400" /> : <ChevronRight size={18} className="text-gray-400" />}
           <Icon size={20} className="text-rose-deep" />
           <h2 className="text-lg font-semibold text-gray-800">{title}</h2>
-          <Badge variant="info">{count}</Badge>
+          <Badge variant="blue">{count}</Badge>
         </div>
         <span className="text-sm font-bold text-rose-deep">{revenue}</span>
       </button>
@@ -590,7 +590,7 @@ export default function AdminReport() {
                       </td>
                       <td className="px-4 py-3 font-medium text-rose-deep">{fmtMoney(o.totalAmount)}</td>
                       <td className="px-4 py-3">
-                        <Badge variant={o.paidFromWallet ? 'success' : 'info'}>{o.paidFromWallet ? 'Wallet' : 'External'}</Badge>
+                        <Badge variant={o.paidFromWallet ? 'success' : 'blue'}>{o.paidFromWallet ? 'Wallet' : 'External'}</Badge>
                       </td>
                       <td className="px-4 py-3 text-xs text-gray-500 max-w-xs truncate">{o.shippingAddress || '-'}</td>
                       <td className="px-4 py-3 text-xs text-gray-400">{fmtDate(o.createdAt)}</td>

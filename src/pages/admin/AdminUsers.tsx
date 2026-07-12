@@ -177,7 +177,7 @@ export default function AdminUsers() {
                     </div>
                   </td>
                   <td className="px-4 py-3 text-gray-600">{u.phone}</td>
-                  <td className="px-4 py-3"><Badge variant={u.role === 'admin' ? 'info' : 'default'}>{u.role}</Badge></td>
+                  <td className="px-4 py-3"><Badge variant={u.role === 'admin' ? 'blue' : 'default'}>{u.role}</Badge></td>
                   <td className="px-4 py-3 font-medium text-gray-700">RM{(u.walletBalance ?? 0).toFixed(2)}</td>
                   <td className="px-4 py-3 font-medium text-amber-600">RM{(u.walletBonus ?? 0).toFixed(2)}</td>
                   <td className="px-4 py-3"><Badge variant={u.isActive ? 'success' : 'danger'}>{u.isActive ? 'Active' : 'Banned'}</Badge></td>

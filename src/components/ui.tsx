@@ -85,17 +85,17 @@ export function ServiceCard({ service }: { service: Service }) {
 export function ProductCard({ product }: { product: Product }) {
   const { t } = useTranslation();
   return (
-    <div className="bg-white rounded-2xl overflow-hidden card-shadow card-shadow-hover animate-scale-in">
-      <Link to={`/products/${product._id}`}>
-        <div className="aspect-square overflow-hidden bg-blush-50">
+    <div className="bg-white rounded-2xl overflow-hidden card-shadow card-shadow-hover animate-scale-in flex flex-col h-full">
+      <Link to={`/products/${product._id}`} className="block">
+        <div className="w-full h-48 sm:h-56 lg:h-84 overflow-hidden bg-blush-50 flex items-center justify-center">
           <img
             src={imageUrl(product.image) || 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=600'}
             alt={product.name}
-            className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+            className="w-full h-full object-cover transition-transform duration-800 hover:scale-105"
           />
         </div>
       </Link>
-      <div className="p-4">
+      <div className="p-4 flex flex-col flex-1">
         <span className="inline-block text-xs font-medium text-gold-600 bg-gold-50 px-2.5 py-0.5 rounded-full mb-2">
           {product.category}
         </span>
@@ -106,11 +106,28 @@ export function ProductCard({ product }: { product: Product }) {
         </Link>
         <p className="text-sm text-gray-500 line-clamp-2 mb-3">{product.description}</p>
         <div className="flex items-center justify-between">
-          <span className="text-lg font-bold text-rose-deep">RM{product.price}</span>
+          {product.weights && product.weights.length > 0 && product.price === 0 ? (
+            <span className="text-lg font-bold text-rose-deep">From RM{Math.min(...product.weights.map((w) => w.price))}</span>
+          ) : (
+            <span className="text-lg font-bold text-rose-deep">RM{product.price}</span>
+          )}
           <span className="text-xs text-gray-400">
-            {product.stock > 0 ? t('ui.inStock', { count: product.stock }) : t('ui.outOfStock')}
+            {product.weights && product.weights.length > 0
+              ? `${product.weights.filter((w) => w.stock > 0).length}/${product.weights.length} variants`
+              : product.stock > 0
+                ? t('ui.inStock', { count: product.stock })
+                : t('ui.outOfStock')}
           </span>
         </div>
+        {product.weights && product.weights.length > 0 && (
+          <div className="flex flex-wrap gap-1 mt-2">
+            {product.weights.map((w, i) => (
+              <span key={i} className={`text-xs px-1.5 py-0.5 rounded ${w.stock > 0 ? 'bg-blush-50 text-gray-600' : 'bg-gray-50 text-gray-300 line-through'}`}>
+                {w.label} ({w.stock})
+              </span>
+            ))}
+          </div>
+        )}
         <div className="flex items-center mt-1">
           {[...Array(5)].map((_, i) => (
             <Star key={i} size={12} className="text-gold-400 fill-gold-400" />
@@ -129,16 +146,17 @@ export function Spinner({ className = '' }: { className?: string }) {
   );
 }
 
-export function Badge({ children, variant = 'default' }: { children: ReactNode; variant?: 'default' | 'success' | 'warning' | 'danger' | 'info' }) {
+export function Badge({ children, variant = 'default' }: { children: ReactNode; variant?: 'default' | 'success' | 'warning' | 'danger' | 'info' | 'blue'}) {
   const variants = {
     default: 'bg-gray-100 text-gray-700',
     success: 'bg-green-100 text-green-700',
     warning: 'bg-amber-100 text-amber-700',
     danger: 'bg-red-100 text-red-700',
     info: 'bg-blue-100 text-blue-700',
+    blue: 'bg-blue-100 text-blue-700',
   };
   return (
-    <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${variants[variant]}`}>
+    <span className={`inline-block px-3 py-1 rounded-full ${variant === 'info' ? 'text-3xl' : 'text-xs'} font-medium ${variants[variant]}`}>
       {children}
     </span>
   );
