@@ -127,7 +127,7 @@ export default function Home() {
               </div>
             </div>
             <div className="relative animate-[fade-in_0.8s_ease-out]">
-              <div className="relative h-[350px] sm:h-[420px] md:h-[520px] lg:h-[620px] w-[720px] rounded-3xl overflow-hidden shadow-2xl">
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl h-[500px] bg-white">
                 {heroSlides.map((s, i) => (
                   <div
                     key={i}
