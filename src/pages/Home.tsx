@@ -5,7 +5,7 @@ import { Sparkles, Scissors, ShoppingBag, Gift, Users, ArrowRight, Star, Heart, 
 import { useTranslation } from 'react-i18next';
 import { serviceAPI, productAPI, promotionAPI, testimonialAPI } from '../api';
 import { ServiceCard, ProductCard, Spinner, PromotionIndicator } from '../components/ui';
-import Test from '../assets/test.png';
+import Test from '../assets/test.jpg';
 import jinLuo from '../assets/jinluo.jpg';
 import shiOng from '../assets/shiong.jpg';
 import shenLiao from '../assets/ShenLiao.jpg';
@@ -127,7 +127,7 @@ export default function Home() {
               </div>
             </div>
             <div className="relative animate-[fade-in_0.8s_ease-out]">
-              <div className="relative rounded-3xl overflow-hidden shadow-2xl h-[500px] bg-white">
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl h-[520px] bg-white">
                 {heroSlides.map((s, i) => (
                   <div
                     key={i}
