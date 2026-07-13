@@ -65,7 +65,7 @@ export default function ProductDetail() {
         <ChevronLeft size={16} /> {t('productsPage.backToProducts')}
       </Link>
 
-      <div className="grid lg:grid-cols-2 gap-8">
+      <div className="grid lg:grid-cols-1.5 gap-4">
         <div className="rounded-2xl overflow-hidden card-shadow">
           <img
             src={imageUrl(product?.image) || 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=800'}

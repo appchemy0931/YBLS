@@ -5,7 +5,7 @@ import { Sparkles, Scissors, ShoppingBag, Gift, Users, ArrowRight, Star, Heart, 
 import { useTranslation } from 'react-i18next';
 import { serviceAPI, productAPI, promotionAPI, testimonialAPI } from '../api';
 import { ServiceCard, ProductCard, Spinner, PromotionIndicator } from '../components/ui';
-import Test from '../assets/test.jpg';
+import Herbal from '../assets/herbal.jpg';
 import jinLuo from '../assets/jinluo.jpg';
 import shiOng from '../assets/shiong.jpg';
 import shenLiao from '../assets/ShenLiao.jpg';
@@ -14,7 +14,7 @@ import zhiGong from '../assets/zhigong.jpg';
 
 const heroSlides = [
   { image: zhiGong },
-  { image: Test },
+  { image: Herbal },
   { image: jinLuo },
   { image: shiOng },
   { image: shenLiao },
@@ -215,7 +215,7 @@ export default function Home() {
           {servicesLoading ? (
             <Spinner className="py-20" />
           ) : (
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid lg:grid-cols-2 lg:grid-cols-4 gap-6">
               {(serviceData?.services || []).slice(0, 6).map((s) => (
                 <ServiceCard key={s._id} service={s} />
               ))}

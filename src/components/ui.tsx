@@ -43,7 +43,8 @@ export function ServiceCard({ service }: { service: Service }) {
   return (
     <div className="bg-white rounded-2xl overflow-hidden card-shadow card-shadow-hover animate-scale-in">
       <Link to={`/services/${service._id}`}>
-        <div className="aspect-4/3 overflow-hidden bg-blush-50">
+        <div className="overflow-hidden bg-blush-50">
+        {/* <div className="w-full h-48 sm:h-56 lg:h-84 overflow-hidden bg-blush-50 flex items-center justify-center"> */}
           <img
             src={imageUrl(service.image) || 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600'}
             alt={service.name}
@@ -87,7 +88,8 @@ export function ProductCard({ product }: { product: Product }) {
   return (
     <div className="bg-white rounded-2xl overflow-hidden card-shadow card-shadow-hover animate-scale-in flex flex-col h-full">
       <Link to={`/products/${product._id}`} className="block">
-        <div className="w-full h-48 sm:h-56 lg:h-84 overflow-hidden bg-blush-50 flex items-center justify-center">
+      <div className="overflow-hidden bg-blush-50">
+        {/* <div className="w-full h-48 sm:h-56 lg:h-84 overflow-hidden bg-blush-50 flex items-center justify-center"> */}
           <img
             src={imageUrl(product.image) || 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=600'}
             alt={product.name}

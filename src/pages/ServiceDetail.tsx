@@ -103,12 +103,12 @@ export default function ServiceDetail() {
         <ChevronLeft size={16} /> {t('servicesPage.backToServices')}
       </Link>
 
-      <div className="grid lg:grid-cols-2 gap-8">
+      <div className="grid lg:grid-cols-1 gap-4">
         <div className="rounded-2xl overflow-hidden card-shadow">
           <img
             src={imageUrl(service?.image) || 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=800'}
             alt={service?.name}
-            className="w-full h-80 lg:h-full object-cover"
+            className="w-full h-full lg:h-full object-cover"
           />
         </div>
 
