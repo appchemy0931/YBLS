@@ -5,19 +5,19 @@ import { Sparkles, Scissors, ShoppingBag, Gift, Users, ArrowRight, Star, Heart, 
 import { useTranslation } from 'react-i18next';
 import { serviceAPI, productAPI, promotionAPI, testimonialAPI } from '../api';
 import { ServiceCard, ProductCard, Spinner, PromotionIndicator } from '../components/ui';
-import KidneyCare from '../assets/Kidney-Care.jpg';
+import Test from '../assets/test.png';
 import jinLuo from '../assets/jinluo.jpg';
 import shiOng from '../assets/shiong.jpg';
-import snowmanImg from '../assets/cute-snowman.jpg';
+import shenLiao from '../assets/ShenLiao.jpg';
 import { imageUrl } from '../utils/image';
 import zhiGong from '../assets/zhigong.jpg';
 
 const heroSlides = [
   { image: zhiGong },
-  { image: KidneyCare },
+  { image: Test },
   { image: jinLuo },
   { image: shiOng },
-  { image: snowmanImg },
+  { image: shenLiao },
 ];
 
 export default function Home() {
@@ -127,7 +127,7 @@ export default function Home() {
               </div>
             </div>
             <div className="relative animate-[fade-in_0.8s_ease-out]">
-              <div className="relative rounded-3xl overflow-hidden shadow-2xl h-125">
+              <div className="relative h-[350px] sm:h-[420px] md:h-[520px] lg:h-[620px] w-[720px] rounded-3xl overflow-hidden shadow-2xl">
                 {heroSlides.map((s, i) => (
                   <div
                     key={i}
