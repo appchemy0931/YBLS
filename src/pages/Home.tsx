@@ -5,7 +5,7 @@ import { Sparkles, Scissors, ShoppingBag, Gift, Users, ArrowRight, Star, Heart, 
 import { useTranslation } from 'react-i18next';
 import { serviceAPI, productAPI, promotionAPI, testimonialAPI } from '../api';
 import { ServiceCard, ProductCard, Spinner, PromotionIndicator } from '../components/ui';
-import Herbal from '../assets/herbal.jpg';
+import EyeCare from '../assets/EyeCare.jpg';
 import jinLuo from '../assets/jinluo.jpg';
 import shiOng from '../assets/shiong.jpg';
 import shenLiao from '../assets/ShenLiao.jpg';
@@ -14,7 +14,7 @@ import zhiGong from '../assets/zhigong.jpg';
 
 const heroSlides = [
   { image: zhiGong },
-  { image: Herbal },
+  { image: EyeCare },
   { image: jinLuo },
   { image: shiOng },
   { image: shenLiao },
