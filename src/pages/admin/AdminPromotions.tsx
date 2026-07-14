@@ -145,7 +145,13 @@ export default function AdminPromotions() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {promotions.map((p) => (
             <div key={p._id} className="bg-white rounded-2xl overflow-hidden card-shadow">
-              <img src={imageUrl(p.image)} alt={p.title} className="w-full h-32 object-cover" />
+              <div className="overflow-hidden bg-blush-50">
+                <img
+                  src={imageUrl(p.image) || 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600'}
+                  alt={p.title}
+                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                />
+              </div>
               <div className="p-4">
                 <div className="mb-2"><PromotionIndicator /></div>
                 <div className="flex items-start justify-between gap-2 mb-2">

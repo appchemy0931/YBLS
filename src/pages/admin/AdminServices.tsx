@@ -11,6 +11,32 @@ import type { Service } from '../../types';
 
 const CATEGORIES = ['Facial Wash', 'Facial Treatment', 'Therapy Massage', 'Body Treatment', 'Skin Care', 'Beauty Package'];
 
+function ServiceCard({ service, onEdit, onDelete }: { service: Service; onEdit: (s: Service) => void; onDelete: (s: Service) => void }) {
+  return (
+    <div className="bg-white rounded-2xl overflow-hidden card-shadow">
+      <div className="overflow-hidden bg-blush-50">
+        <img
+          src={imageUrl(service.image) || 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600'}
+          alt={service.name}
+          className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+        />
+      </div>
+      <div className="p-4">
+        <div className="flex items-start justify-between gap-2 mb-2">
+          <h3 className="font-semibold text-gray-800">{service.name}</h3>
+          <Badge variant={service.status === 'active' ? 'success' : 'danger'}>{service.status}</Badge>
+        </div>
+        <p className="text-xs text-gray-400 mb-2">{service.category}{service.duration ? ` · ${service.duration}min` : ''}</p>
+        <p className="text-lg font-bold text-rose-deep mb-3">RM{service.price}</p>
+        <div className="flex gap-2">
+          <Button size="sm" variant="outline" onClick={() => onEdit(service)}><Edit size={14} className="inline mr-1" /> Edit</Button>
+          <Button size="sm" variant="danger" onClick={() => onDelete(service)}><Trash2 size={14} /></Button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function AdminServices() {
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState<Service | null>(null);
@@ -132,30 +158,27 @@ export default function AdminServices() {
       {isLoading ? <Spinner className="py-20" /> : services.length === 0 ? (
         <EmptyState icon={Scissors} title="No services" message="Add your first beauty service." />
       ) : (
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {services.map((s) => (
-            <div key={s._id} className="bg-white rounded-2xl overflow-hidden card-shadow">
-              <div className="overflow-hidden bg-blush-50">
-                <img
-                  src={imageUrl(s.image) || 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600'}
-                  alt={s.name}
-                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
-                />
+        <div className="space-y-8">
+          {CATEGORIES.filter((c) => services.some((s) => s.category === c)).map((category) => (
+            <section key={category}>
+              <h2 className="text-lg font-bold text-gray-800 mb-3 border-b border-gray-200 pb-2">{category}</h2>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {services.filter((s) => s.category === category).map((s) => (
+                  <ServiceCard key={s._id} service={s} onEdit={openEdit} onDelete={setDeleteTarget} />
+                ))}
               </div>
-              <div className="p-4">
-                <div className="flex items-start justify-between gap-2 mb-2">
-                  <h3 className="font-semibold text-gray-800">{s.name}</h3>
-                  <Badge variant={s.status === 'active' ? 'success' : 'danger'}>{s.status}</Badge>
-                </div>
-                <p className="text-xs text-gray-400 mb-2">{s.category}{s.duration ? ` · ${s.duration}min` : ''}</p>
-                <p className="text-lg font-bold text-rose-deep mb-3">RM{s.price}</p>
-                <div className="flex gap-2">
-                  <Button size="sm" variant="outline" onClick={() => openEdit(s)}><Edit size={14} className="inline mr-1" /> Edit</Button>
-                  <Button size="sm" variant="danger" onClick={() => setDeleteTarget(s)}><Trash2 size={14} /></Button>
-                </div>
-              </div>
-            </div>
+            </section>
           ))}
+          {services.some((s) => !CATEGORIES.includes(s.category)) && (
+            <section>
+              <h2 className="text-lg font-bold text-gray-800 mb-3 border-b border-gray-200 pb-2">Others</h2>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {services.filter((s) => !CATEGORIES.includes(s.category)).map((s) => (
+                  <ServiceCard key={s._id} service={s} onEdit={openEdit} onDelete={setDeleteTarget} />
+                ))}
+              </div>
+            </section>
+          )}
         </div>
       )}
 

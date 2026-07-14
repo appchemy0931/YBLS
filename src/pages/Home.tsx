@@ -10,6 +10,7 @@ import jinLuo from '../assets/jinluo.jpg';
 import shiOng from '../assets/shiong.jpg';
 import shenLiao from '../assets/ShenLiao.jpg';
 import { imageUrl } from '../utils/image';
+import { useAuth } from '../context/AuthContext';
 import zhiGong from '../assets/zhigong.jpg';
 
 const heroSlides = [
@@ -40,7 +41,10 @@ export default function Home() {
   });
 
   const navigate = useNavigate();
+  const { user } = useAuth();
   const handleClaimPromo = (promoId: string) => navigate(`/promotions/${promoId}`);
+
+  const registerHref = user ? `/register?ref=${encodeURIComponent(user.referralCode || '')}` : '/register';
 
   const promotions = (promoData?.promotions || [])
     .filter((p) => p.status === 'active' && new Date(p.endDate) >= new Date())
@@ -127,7 +131,7 @@ export default function Home() {
               </div>
             </div>
             <div className="relative animate-[fade-in_0.8s_ease-out]">
-              <div className="relative rounded-3xl overflow-hidden shadow-2xl h-[520px] bg-white">
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl h-130 bg-white">
                 {heroSlides.map((s, i) => (
                   <div
                     key={i}
@@ -215,8 +219,8 @@ export default function Home() {
           {servicesLoading ? (
             <Spinner className="py-20" />
           ) : (
-            <div className="grid lg:grid-cols-2 lg:grid-cols-4 gap-6">
-              {(serviceData?.services || []).slice(0, 6).map((s) => (
+            <div className="grid lg:grid-cols-3 gap-6">
+              {(serviceData?.services || []).slice(0, 9).map((s) => (
                 <ServiceCard key={s._id} service={s} />
               ))}
             </div>
@@ -250,8 +254,8 @@ export default function Home() {
                 const discounted = p.originalPrice * (1 - p.discount / 100);
                 return (
                   <div key={p._id} className="bg-white rounded-2xl overflow-hidden card-shadow card-shadow-hover animate-scale-in">
-                    <div className="relative">
-                      <img src={imageUrl(p.image)} alt={p.title} className="w-full h-44 object-cover" />
+                    <div className="overflow-hidden bg-blush-50">
+                      <img src={imageUrl(p.image)} alt={p.title} className="w-full h-full object-cover transition-transform duration-500 hover:scale-110" />
                       {p.discount > 0 && (
                         <span className="absolute top-3 right-3 bg-rose-deep text-white text-sm font-bold px-3 py-1 rounded-full shadow-lg">
                           {p.discount}% {t('home.promotions.off')}
@@ -291,7 +295,7 @@ export default function Home() {
           <p className="text-gray-300 max-w-xl mx-auto mb-8">
             {t('home.referral.desc')}
           </p>
-          <Link to="/register" className="inline-flex items-center gap-2 bg-linear-to-r from-gold-500 to-gold-400 text-white px-8 py-3.5 rounded-full font-medium hover:shadow-xl transition-all">
+          <Link to={registerHref} className="inline-flex items-center gap-2 bg-linear-to-r from-gold-500 to-gold-400 text-white px-8 py-3.5 rounded-full font-medium hover:shadow-xl transition-all">
             {t('home.referral.cta')} <ArrowRight size={18} />
           </Link>
         </div>

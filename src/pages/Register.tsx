@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
-import { Mail, Lock, User, Phone, Eye, EyeOff, Sparkles, Gift } from 'lucide-react';
+import { Mail, Lock, User, Phone, Eye, EyeOff, Gift } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { authAPI } from '../api';
 import { useAuth } from '../context/AuthContext';
 import { Spinner } from '../components/ui';
+import YBLSLogo from '../assets/YBLS-Red.png';
 
 export default function Register() {
   const [form, setForm] = useState({ name: '', email: '', phone: '', password: '', referralCode: '' });
@@ -50,12 +51,24 @@ export default function Register() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-blush-50 via-cream to-rose-soft px-4 py-12">
       <div className="w-full max-w-md">
-        <div className="text-center mb-8">
-          <Link to="/" className="inline-flex items-center gap-2 mb-6">
-            <div className="w-12 h-12 rounded-full bg-linear-to-br from-rose-deep to-gold-400 flex items-center justify-center">
+        <div className="text-center">
+          <Link to="/" className="inline-flex items-center gap-1">
+            {/* <div className="w-12 h-12 rounded-full bg-linear-to-br from-rose-deep to-gold-400 flex items-center justify-center">
               <Sparkles size={24} className="text-white" />
+            </div> */}
+            <div className="flex items-center gap-2 mb-4 mt-5">
+              <img
+                src={YBLSLogo}
+                alt="YBLS"
+                className="w-25 h-25 rounded-full object-cover"
+              />
             </div>
-            <span className="text-3xl font-bold text-gradient-gold" style={{ fontFamily: 'Playfair Display, serif' }}>YBLS</span>
+            <span
+              className="text-3xl font-bold text-gradient-gold"
+              style={{ fontFamily: "Playfair Display, serif" }}
+            >
+              YBLS
+            </span>
           </Link>
           <h1 className="text-2xl font-bold text-gray-800">{t('auth.createAccount')}</h1>
           <p className="text-gray-500 mt-2">{t('auth.joinYBLS')}</p>

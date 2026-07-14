@@ -62,8 +62,8 @@ export default function Services() {
                 const discounted = p.originalPrice * (1 - p.discount / 100);
                 return (
                   <div key={p._id} className="bg-white rounded-2xl overflow-hidden card-shadow card-shadow-hover">
-                    <div className="relative">
-                      <img src={imageUrl(p.image)} alt={p.title} className="w-full h-40 object-cover" />
+                    <div className="overflow-hidden bg-blush-50">
+                      <img src={imageUrl(p.image)} alt={p.title} className="w-full h-full object-cover transition-transform duration-500 hover:scale-110" />
                       {p.discount > 0 && (
                         <span className="absolute top-3 right-3 bg-rose-deep text-white text-sm font-bold px-3 py-1 rounded-full shadow-lg">
                           {p.discount}% {t('servicesPage.promotions.off')}

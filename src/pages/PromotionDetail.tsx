@@ -98,7 +98,7 @@ export default function PromotionDetail() {
         <ChevronLeft size={16} /> {t('promotionsPage.backToPromotions')}
       </Link>
 
-      <div className="grid lg:grid-cols-2 gap-8">
+      <div className="grid lg:grid-cols-1 gap-8">
         <div className="relative rounded-2xl overflow-hidden card-shadow">
           <img
             src={imageUrl(promotion?.image) || 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=800'}
@@ -191,13 +191,13 @@ export default function PromotionDetail() {
                     <p className="text-xs text-gray-400">{t('servicesPage.payOnArrivalDesc')}</p>
                   </div>
                 </label>
-                <label className={`flex items-center gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all ${paymentMethod === 'wallet' ? 'border-rose-deep bg-rose-soft' : 'border-gray-200'}`}>
+                {/* <label className={`flex items-center gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all ${paymentMethod === 'wallet' ? 'border-rose-deep bg-rose-soft' : 'border-gray-200'}`}>
                   <input type="radio" checked={paymentMethod === 'wallet'} onChange={() => setPaymentMethod('wallet')} className="text-rose-deep focus:ring-rose-deep" />
                   <div>
                     <p className="text-sm font-medium text-gray-700">{t('servicesPage.payFromWallet')}</p>
                     <p className="text-xs text-gray-400">{t('servicesPage.available', { amount: (user.walletBalance || 0).toFixed(2) })}</p>
                   </div>
-                </label>
+                </label> */}
                 {/* <label className={`flex items-center gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all ${paymentMethod === 'split' ? 'border-rose-deep bg-rose-soft' : 'border-gray-200'}`}>
                   <input type="radio" checked={paymentMethod === 'split'} onChange={() => setPaymentMethod('split')} className="text-rose-deep focus:ring-rose-deep" />
                   <div>
