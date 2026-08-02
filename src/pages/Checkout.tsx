@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { Check, CreditCard, Wallet, ShoppingBag } from 'lucide-react';
+import { Check, CreditCard, ShoppingBag, Store } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { orderAPI, walletAPI } from '../api';
@@ -17,6 +17,7 @@ export default function Checkout() {
   const queryClient = useQueryClient();
   const [address, setAddress] = useState('');
   const [payFromWallet, setPayFromWallet] = useState(false);
+  const [selfCollect, setSelfCollect] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const { t } = useTranslation();
 
@@ -24,8 +25,9 @@ export default function Checkout() {
     mutationFn: () =>
       orderAPI.create({
         items: cart.map((item) => ({ productId: item.product._id, qty: item.qty, weightLabel: item.weightVariant?.label })),
-        shippingAddress: address,
+        shippingAddress: selfCollect ? '' : address,
         payFromWallet,
+        selfCollect,
       }),
     onSuccess: async (res) => {
       toast.success(t('checkout.orderPlaced'));
@@ -65,28 +67,50 @@ export default function Checkout() {
       <form onSubmit={handleSubmit} className="grid lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-6">
           <div className="bg-white rounded-2xl p-6 card-shadow">
-            <h2 className="text-lg font-semibold text-gray-800 mb-4">{t('checkout.shippingAddress')}</h2>
+            <div className="flex items-start justify-between gap-3 mb-4">
+              <h2 className="text-lg font-semibold text-gray-800">{t('checkout.shippingAddress')}</h2>
+              <button
+                type="button"
+                onClick={() => setSelfCollect((prev) => !prev)}
+                className={`flex items-center gap-2 px-3 py-2 rounded-xl border-2 text-sm font-medium transition-all ${
+                  selfCollect
+                    ? 'border-rose-deep bg-rose-soft text-rose-deep'
+                    : 'border-gray-200 text-gray-600 hover:border-rose-deep/50'
+                }`}
+              >
+                <span className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors ${selfCollect ? 'border-rose-deep bg-rose-deep' : 'border-gray-300'}`}>
+                  {selfCollect && <Check size={12} className="text-white" />}
+                </span>
+                <Store size={16} />
+                {t('checkout.selfCollect')}
+              </button>
+            </div>
             <textarea
               value={address}
               onChange={(e) => setAddress(e.target.value)}
               rows={3}
-              required
-              placeholder={t('checkout.addressPlaceholder')}
-              className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-rose-deep focus:ring-1 focus:ring-rose-deep transition-colors resize-none"
+              required={!selfCollect}
+              disabled={selfCollect}
+              placeholder={selfCollect ? t('checkout.selfCollectHint') : t('checkout.addressPlaceholder')}
+              className={`w-full px-4 py-3 rounded-xl border transition-colors resize-none ${
+                selfCollect
+                  ? 'bg-gray-50 text-gray-400 border-gray-200 cursor-not-allowed'
+                  : 'border-gray-200 focus:outline-none focus:border-rose-deep focus:ring-1 focus:ring-rose-deep'
+              }`}
             />
           </div>
 
           <div className="bg-white rounded-2xl p-6 card-shadow">
             <h2 className="text-lg font-semibold text-gray-800 mb-4">{t('checkout.paymentMethod')}</h2>
             <div className="space-y-3">
-              <label className={`flex items-center gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all ${payFromWallet ? 'border-rose-deep bg-rose-soft' : 'border-gray-200'}`}>
+              {/* <label className={`flex items-center gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all ${payFromWallet ? 'border-rose-deep bg-rose-soft' : 'border-gray-200'}`}>
                 <input type="radio" checked={payFromWallet} onChange={() => setPayFromWallet(true)} className="text-rose-deep" />
                 <Wallet size={20} className="text-rose-deep" />
                 <div className="flex-1">
                   <p className="font-medium text-gray-800">{t('checkout.payFromWallet')}</p>
                   <p className="text-xs text-gray-400">{t('checkout.available', { amount: ((user?.walletBalance || 0) + (user?.walletBonus || 0)).toFixed(2) })}</p>
                 </div>
-              </label>
+              </label> */}
               <label className={`flex items-center gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all ${!payFromWallet ? 'border-rose-deep bg-rose-soft' : 'border-gray-200'}`}>
                 <input type="radio" checked={!payFromWallet} onChange={() => setPayFromWallet(false)} className="text-rose-deep" />
                 <CreditCard size={20} className="text-gray-500" />
@@ -145,7 +169,7 @@ export default function Checkout() {
           },
           {
             label: t('confirmModal.shippingAddress'),
-            value: address || '—',
+            value: selfCollect ? t('checkout.selfCollect') : address || '—',
           },
           {
             label: t('confirmModal.paymentMethod'),

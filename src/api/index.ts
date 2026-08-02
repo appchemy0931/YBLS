@@ -80,7 +80,7 @@ export const productAPI = {
 };
 
 export const orderAPI = {
-  create: (data: { items: { productId: string; qty: number; weightLabel?: string }[]; shippingAddress?: string; payFromWallet?: boolean }) =>
+  create: (data: { items: { productId: string; qty: number; weightLabel?: string }[]; shippingAddress?: string; payFromWallet?: boolean; selfCollect?: boolean }) =>
     api.post<{ order: Order }>('/orders', data),
   getMy: () => api.get<{ orders: Order[] }>('/orders/my'),
   getById: (id: string) => api.get<{ order: Order }>(`/orders/${id}`),
@@ -89,6 +89,13 @@ export const orderAPI = {
     api.put<{ order: Order }>(`/orders/${id}`, data),
   updateStatus: (id: string, status: string, reason?: string) => api.put<{ order: Order }>(`/orders/${id}/status`, { status, reason }),
   delete: (id: string) => api.delete<{ success: boolean; message: string }>(`/orders/${id}`),
+};
+
+export const cartAPI = {
+  getMy: () => api.get<{ cart: import('../types').CartItem[] }>('/cart/my'),
+  save: (items: { productId: string; qty: number; weightLabel?: string }[]) =>
+    api.put<{ cart: import('../types').CartItem[] }>('/cart', { items }),
+  clear: () => api.delete('/cart'),
 };
 
 export const walletAPI = {

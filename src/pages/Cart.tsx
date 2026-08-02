@@ -32,40 +32,46 @@ export default function Cart() {
             const wLabel = item.weightVariant?.label;
             const price = itemPrice(item);
             return (
-              <div key={`${item.product._id}-${wLabel || 'default'}`} className="bg-white rounded-2xl p-4 card-shadow flex items-center gap-4">
+              <div key={`${item.product._id}-${wLabel || 'default'}`} className="bg-white rounded-2xl p-4 card-shadow flex gap-4">
                 <img src={imageUrl(item.product.image)} alt={item.product.name} className="w-20 h-20 rounded-xl object-cover shrink-0" />
                 <div className="flex-1 min-w-0">
-                  <h3 className="font-medium text-gray-800 truncate">{item.product.name}</h3>
+                  <div className="flex items-start justify-between gap-2">
+                    <h3 className="font-medium text-gray-800 truncate">{item.product.name}</h3>
+                    <button onClick={() => removeFromCart(item.product._id, wLabel)} className="shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-red-400 hover:bg-red-50 transition-colors">
+                      <Trash2 size={18} />
+                    </button>
+                  </div>
                   <p className="text-sm text-gray-400">{item.product.category}</p>
                   {wLabel && (
-                    <span className="inline-block mt-0.5 text-xs bg-blush-50 text-gray-700 px-2 py-0.5 rounded-full">{wLabel}</span>
+                    <span className="inline-block mt-1 text-xs bg-blush-50 text-gray-700 px-2 py-0.5 rounded-full">{wLabel}</span>
                   )}
                   {item.weightVariant && (
-                    <span className={`inline-block mt-0.5 ml-1 text-xs ${item.weightVariant.stock > 0 ? 'text-green-600' : 'text-red-400'}`}>
+                    <span className={`inline-block mt-1 ml-1 text-xs ${item.weightVariant.stock > 0 ? 'text-green-600' : 'text-red-400'}`}>
                       Stock: {item.weightVariant.stock}
                     </span>
                   )}
-                  <p className="text-lg font-bold text-rose-deep mt-1">RM{price.toFixed(2)}</p>
+                  <div className="flex items-center justify-between mt-3">
+                    <p className="text-lg font-bold text-rose-deep">RM{price.toFixed(2)}</p>
+                    <div className="flex items-center gap-2 shrink-0">
+                      <button onClick={() => updateQty(item.product._id, item.qty - 1, wLabel)} className="w-9 h-9 sm:w-8 sm:h-8 rounded-lg bg-blush-50 flex items-center justify-center hover:bg-rose-soft transition-colors">
+                        <Minus size={16} />
+                      </button>
+                      <span className="w-8 text-center font-medium">{item.qty}</span>
+                      <button onClick={() => updateQty(item.product._id, item.qty + 1, wLabel)} className="w-9 h-9 sm:w-8 sm:h-8 rounded-lg bg-blush-50 flex items-center justify-center hover:bg-rose-soft transition-colors">
+                        <Plus size={16} />
+                      </button>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <button onClick={() => updateQty(item.product._id, item.qty - 1, wLabel)} className="w-8 h-8 rounded-lg bg-blush-50 flex items-center justify-center hover:bg-rose-soft transition-colors">
-                    <Minus size={16} />
-                  </button>
-                  <span className="w-8 text-center font-medium">{item.qty}</span>
-                  <button onClick={() => updateQty(item.product._id, item.qty + 1, wLabel)} className="w-8 h-8 rounded-lg bg-blush-50 flex items-center justify-center hover:bg-rose-soft transition-colors">
-                    <Plus size={16} />
-                  </button>
-                </div>
-                <button onClick={() => removeFromCart(item.product._id, wLabel)} className="w-8 h-8 rounded-lg flex items-center justify-center text-red-400 hover:bg-red-50 transition-colors">
-                  <Trash2 size={18} />
-                </button>
               </div>
             );
           })}
-          <button onClick={clearCart} className="text-sm text-red-400 hover:text-red-600 transition-colors">{t('cart.clearAll')}</button>
+          <button onClick={clearCart} className="self-start text-sm text-red-400 hover:text-red-600 transition-colors px-1 py-1">
+            {t('cart.clearAll')}
+          </button>
         </div>
 
-        <div className="bg-white rounded-2xl p-6 card-shadow h-fit sticky top-24">
+        <div className="bg-white rounded-2xl p-6 card-shadow h-fit lg:sticky lg:top-24">
           <h2 className="text-lg font-semibold text-gray-800 mb-4">{t('cart.orderSummary')}</h2>
           <div className="space-y-2 mb-4">
             {cart.map((item) => {

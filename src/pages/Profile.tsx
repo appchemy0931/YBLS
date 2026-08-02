@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { useMutation } from '@tanstack/react-query';
-import { User, Mail, Phone, Lock, Save, Key, Camera, Trash2 } from 'lucide-react';
+import { User, Mail, Phone, Lock, Save, Key, Camera, Trash2, Eye, EyeOff } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { authAPI, uploadAPI } from '../api';
@@ -14,6 +14,7 @@ export default function Profile() {
   const [form, setForm] = useState({ name: user?.name || '', phone: user?.phone || '' });
   const [pwForm, setPwForm] = useState({ currentPassword: '', newPassword: '', confirmPassword: '' });
   const [showPwSection, setShowPwSection] = useState(false);
+  const [showPw, setShowPw] = useState({ current: false, new: false, confirm: false });
   const [uploadingAvatar, setUploadingAvatar] = useState(false);
   const [showSaveConfirm, setShowSaveConfirm] = useState(false);
   const [showPwConfirm, setShowPwConfirm] = useState(false);
@@ -25,6 +26,7 @@ export default function Profile() {
     mutationFn: () => authAPI.updateProfile(form),
     onSuccess: (res) => {
       updateUser(res.data as any);
+      setShowSaveConfirm(false);
       toast.success(t('profile.profileUpdated'));
     },
     onError: (err: Error) => toast.error(err.message),
@@ -34,6 +36,7 @@ export default function Profile() {
     mutationFn: () => authAPI.changePassword({ currentPassword: pwForm.currentPassword, newPassword: pwForm.newPassword }),
     onSuccess: () => {
       toast.success(t('profile.passwordChanged'));
+      setShowPwConfirm(false);
       setPwForm({ currentPassword: '', newPassword: '', confirmPassword: '' });
     },
     onError: (err: Error) => toast.error(err.message),
@@ -194,24 +197,33 @@ export default function Profile() {
               <label className="block text-sm font-medium text-gray-700 mb-2">{t('profile.currentPassword')}</label>
               <div className="relative">
                 <Lock size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
-                <input type="password" value={pwForm.currentPassword} onChange={(e) => setPwForm({ ...pwForm, currentPassword: e.target.value })}
-                  className="w-full pl-11 pr-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-rose-deep focus:ring-1 focus:ring-rose-deep transition-colors" />
+              <input type={showPw.current ? 'text' : 'password'} value={pwForm.currentPassword} onChange={(e) => setPwForm({ ...pwForm, currentPassword: e.target.value })}
+                className="w-full pl-11 pr-11 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-rose-deep focus:ring-1 focus:ring-rose-deep transition-colors" />
+              <button type="button" onClick={() => setShowPw((s) => ({ ...s, current: !s.current }))} className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                {showPw.current ? <EyeOff size={18} /> : <Eye size={18} />}
+              </button>
               </div>
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">{t('profile.newPassword')}</label>
               <div className="relative">
                 <Lock size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
-                <input type="password" value={pwForm.newPassword} onChange={(e) => setPwForm({ ...pwForm, newPassword: e.target.value })}
-                  className="w-full pl-11 pr-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-rose-deep focus:ring-1 focus:ring-rose-deep transition-colors" />
+              <input type={showPw.new ? 'text' : 'password'} value={pwForm.newPassword} onChange={(e) => setPwForm({ ...pwForm, newPassword: e.target.value })}
+                className="w-full pl-11 pr-11 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-rose-deep focus:ring-1 focus:ring-rose-deep transition-colors" />
+              <button type="button" onClick={() => setShowPw((s) => ({ ...s, new: !s.new }))} className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                {showPw.new ? <EyeOff size={18} /> : <Eye size={18} />}
+              </button>
               </div>
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">{t('profile.confirmNewPassword')}</label>
               <div className="relative">
                 <Lock size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
-                <input type="password" value={pwForm.confirmPassword} onChange={(e) => setPwForm({ ...pwForm, confirmPassword: e.target.value })}
-                  className="w-full pl-11 pr-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-rose-deep focus:ring-1 focus:ring-rose-deep transition-colors" />
+              <input type={showPw.confirm ? 'text' : 'password'} value={pwForm.confirmPassword} onChange={(e) => setPwForm({ ...pwForm, confirmPassword: e.target.value })}
+                className="w-full pl-11 pr-11 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-rose-deep focus:ring-1 focus:ring-rose-deep transition-colors" />
+              <button type="button" onClick={() => setShowPw((s) => ({ ...s, confirm: !s.confirm }))} className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                {showPw.confirm ? <EyeOff size={18} /> : <Eye size={18} />}
+              </button>
               </div>
             </div>
             <Button type="submit" disabled={pwMutation.isPending}>

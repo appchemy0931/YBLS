@@ -12,6 +12,7 @@ import shenLiao from '../assets/ShenLiao.jpg';
 import { imageUrl } from '../utils/image';
 import { useAuth } from '../context/AuthContext';
 import zhiGong from '../assets/zhigong.jpg';
+import WhatsAppButton from '../components/WhatsAppButton';
 
 const heroSlides = [
   { image: zhiGong },
@@ -423,6 +424,9 @@ export default function Home() {
           />
         </div>
       )}
+
+      {/* Floating WhatsApp chat button (sits above the global BackToTop) */}
+      <WhatsAppButton />
     </div>
   );
 }

@@ -95,6 +95,7 @@ export interface Order {
   status: 'Pending' | 'Paid' | 'Shipped' | 'Delivered' | 'Cancelled';
   paidFromWallet: boolean;
   shippingAddress?: string;
+  selfCollect?: boolean;
   cancellationReason?: string;
   cancelledBy?: { _id: string; name: string; userId: string } | string | null;
   cancelledByRole?: string;
