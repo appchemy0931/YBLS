@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { Users2, Award, Search } from 'lucide-react';
+import { Users2, Award, Search, Star } from 'lucide-react';
 import { referralAPI } from '../../api';
 import { useTranslation } from 'react-i18next';
 import { Spinner, Badge, EmptyState } from '../../components/ui';
@@ -78,10 +78,30 @@ export default function AdminReferrals() {
               {referrals.map((r: Referral) => (
                 <tr key={r._id} className="hover:bg-gray-50">
                   <td className="px-4 py-3 font-medium text-gray-800">
-                    {typeof r.inviterUserId === 'object' && r.inviterUserId ? (r.inviterUserId as any).name : t('common.na')}
+                    {typeof r.inviterUserId === 'object' && r.inviterUserId ? (
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        <span>{(r.inviterUserId as any).name}</span>
+                        {(r.inviterUserId as any).customerRanking > 0 && (
+                          <span className="inline-flex items-center gap-0.5 text-gold-600 font-semibold text-[11px] bg-gold-50 px-2 py-0.5 rounded-full border border-gold-200">
+                            <Star size={11} className="fill-gold-400 text-gold-400" />
+                            <span>{(r.inviterUserId as any).customerRanking}-Star</span>
+                          </span>
+                        )}
+                      </div>
+                    ) : t('common.na')}
                   </td>
                   <td className="px-4 py-3 text-gray-600">
-                    {typeof r.newUserId === 'object' && r.newUserId ? (r.newUserId as any).name : t('common.na')}
+                    {typeof r.newUserId === 'object' && r.newUserId ? (
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        <span>{(r.newUserId as any).name}</span>
+                        {(r.newUserId as any).customerRanking > 0 && (
+                          <span className="inline-flex items-center gap-0.5 text-gold-600 font-semibold text-[11px] bg-gold-50 px-2 py-0.5 rounded-full border border-gold-200">
+                            <Star size={11} className="fill-gold-400 text-gold-400" />
+                            <span>{(r.newUserId as any).customerRanking}-Star</span>
+                          </span>
+                        )}
+                      </div>
+                    ) : t('common.na')}
                   </td>
                   <td className="px-4 py-3 text-gray-500 font-mono text-xs">{r.referralCode}</td>
                   <td className="px-4 py-3">

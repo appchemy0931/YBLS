@@ -102,18 +102,19 @@ export default function Dashboard() {
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
             {tiers.map((tier: RankingTier) => {
+              const RANK_DISCOUNTS: Record<number, number> = { 2: 10, 3: 12, 4: 15, 5: 20 };
               const isCurrent = tier.tier === currentRanking;
               const isNext = tier.tier === currentRanking + 1;
               const isPending = pendingTiers.has(tier.tier);
               const loading = requestMutation.isPending && requestMutation.variables === tier.tier;
+              const discount = RANK_DISCOUNTS[tier.stars] ?? tier.discount ?? 0;
               return (
                 <div
                   key={tier.tier}
-                  className={`rounded-2xl p-5 border transition-all flex flex-col ${
-                    isCurrent
-                      ? 'border-gold-400 bg-linear-to-br from-gold-50 to-blush-50 ring-2 ring-gold-300'
-                      : 'border-gray-200 bg-white card-shadow-hover'
-                  }`}
+                  className={`rounded-2xl p-5 border transition-all flex flex-col ${isCurrent
+                    ? 'border-gold-400 bg-linear-to-br from-gold-50 to-blush-50 ring-2 ring-gold-300'
+                    : 'border-gray-200 bg-white card-shadow-hover'
+                    }`}
                 >
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-1">
@@ -131,7 +132,9 @@ export default function Dashboard() {
                   <p className="text-xs text-gray-400 mb-3">{t('dashboard.starMember', { stars: tier.stars })}</p>
                   <div className="mt-auto">
                     <p className="text-2xl font-bold text-rose-deep">RM{tier.price}</p>
-                    <p className="text-xs text-gold-600 mb-3">{t('dashboard.addedToWallet', { price: tier.price })}</p>
+                    <p className={`text-xs mb-3 ${discount > 0 ? 'text-gold-600' : 'invisible'}`}>
+                      {discount > 0 ? t('dashboard.discount', { discount }) : '\u00A0'}
+                    </p>
                     {isPending ? (
                       <Button variant="outline" size="sm" className="w-full" disabled>
                         {t('dashboard.pendingApproval')}
@@ -239,7 +242,7 @@ export default function Dashboard() {
             </div>
             <div className="flex justify-between text-sm">
               <span className="text-gray-400">{t('dashboard.totalRewards')}</span>
-              <span className="font-medium text-gold-400">RM{(referralData?.stats.totalReward || 0).toFixed(2)}</span>
+              <span className="font-medium text-gold-400">{(referralData?.stats.totalReward || 0).toFixed(2)} YBcoin</span>
             </div>
           </div>
           <Link to="/referral" className="block text-center bg-linear-to-r from-gold-500 to-gold-400 py-2.5 rounded-xl font-medium hover:shadow-xl transition-all">
@@ -279,13 +282,13 @@ export default function Dashboard() {
         details={
           confirmTier
             ? [
-                { label: t('confirmModal.tier'), value: confirmTier.name },
-                { label: t('dashboard.customerRanking'), value: t('dashboard.starMember', { stars: confirmTier.stars }) },
-                {
-                  label: t('confirmModal.total'),
-                  value: <span className="text-rose-deep font-bold">RM{confirmTier.price}</span>,
-                },
-              ]
+              { label: t('confirmModal.tier'), value: confirmTier.name },
+              { label: t('dashboard.customerRanking'), value: t('dashboard.starMember', { stars: confirmTier.stars }) },
+              {
+                label: t('confirmModal.total'),
+                value: <span className="text-rose-deep font-bold">RM{confirmTier.price}</span>,
+              },
+            ]
             : []
         }
       />

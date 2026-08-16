@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Search, Ban, Check, Trash2, Edit, X, Users as UsersIcon, KeyRound } from 'lucide-react';
+import { Search, Ban, Check, Trash2, Edit, X, Users as UsersIcon, KeyRound, Star } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { adminAPI } from '../../api';
 import { Spinner, Badge, EmptyState, Button } from '../../components/ui';
@@ -11,7 +11,7 @@ export default function AdminUsers() {
   const [search, setSearch] = useState('');
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState<any | null>(null);
-  const [form, setForm] = useState({ name: '', email: '', phone: '', role: 'customer', walletBalance: '', walletBonus: '', isActive: true });
+  const [form, setForm] = useState({ name: '', email: '', phone: '', role: 'customer', walletBalance: '', walletBonus: '', customerRanking: 0, isActive: true });
   const [password, setPassword] = useState('');
   const [deleteTarget, setDeleteTarget] = useState<any | null>(null);
   const queryClient = useQueryClient();
@@ -49,11 +49,11 @@ export default function AdminUsers() {
     u.name.toLowerCase().includes(search.toLowerCase()) || u.email.toLowerCase().includes(search.toLowerCase())
   );
 
-  const resetForm = () => { setShowForm(false); setEditing(null); setForm({ name: '', email: '', phone: '', role: 'customer', walletBalance: '', walletBonus: '', isActive: true }); setPassword(''); };
+  const resetForm = () => { setShowForm(false); setEditing(null); setForm({ name: '', email: '', phone: '', role: 'customer', walletBalance: '', walletBonus: '', customerRanking: 0, isActive: true }); setPassword(''); };
 
   const openEdit = (u: any) => {
     setEditing(u);
-    setForm({ name: u.name, email: u.email, phone: u.phone || '', role: u.role, walletBalance: u.walletBalance != null ? String(u.walletBalance) : '', walletBonus: u.walletBonus != null ? String(u.walletBonus) : '', isActive: u.isActive });
+    setForm({ name: u.name, email: u.email, phone: u.phone || '', role: u.role, walletBalance: u.walletBalance != null ? String(u.walletBalance) : '', walletBonus: u.walletBonus != null ? String(u.walletBonus) : '', customerRanking: u.customerRanking ?? 0, isActive: u.isActive });
     setShowForm(true);
   };
 
@@ -62,7 +62,7 @@ export default function AdminUsers() {
   const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!editingId) return;
-    updateUser.mutate({ id: editingId, ...form, walletBalance: Number(form.walletBalance) || 0, walletBonus: Number(form.walletBonus) || 0 });
+    updateUser.mutate({ id: editingId, ...form, walletBalance: Number(form.walletBalance) || 0, walletBonus: Number(form.walletBonus) || 0, customerRanking: Number(form.customerRanking) || 0 });
   };
 
   const handleChangePassword = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -120,10 +120,24 @@ export default function AdminUsers() {
                     className="w-full px-4 py-2.5 rounded-lg border border-gray-200 focus:outline-none focus:border-rose-deep" />
                 </div>
               </div>
-              <div>
-                <label className="text-xs text-gray-500">Wallet Bonus (RM)</label>
-                <input type="text" inputMode="decimal" placeholder="0.00" value={form.walletBonus} onChange={(e) => setForm({ ...form, walletBonus: sanitizeAmount(e.target.value) })}
-                  className="w-full px-4 py-2.5 rounded-lg border border-gray-200 focus:outline-none focus:border-rose-deep" />
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="text-xs text-gray-500">Wallet Bonus (RM)</label>
+                  <input type="text" inputMode="decimal" placeholder="0.00" value={form.walletBonus} onChange={(e) => setForm({ ...form, walletBonus: sanitizeAmount(e.target.value) })}
+                    className="w-full px-4 py-2.5 rounded-lg border border-gray-200 focus:outline-none focus:border-rose-deep" />
+                </div>
+                <div>
+                  <label className="text-xs text-gray-500">Star Ranking</label>
+                  <select value={form.customerRanking} onChange={(e) => setForm({ ...form, customerRanking: Number(e.target.value) })}
+                    className="w-full px-4 py-2.5 rounded-lg border border-gray-200 focus:outline-none focus:border-rose-deep">
+                    <option value={0}>No Ranking (0-Star)</option>
+                    <option value={1}>1-Star Member</option>
+                    <option value={2}>2-Star Member</option>
+                    <option value={3}>3-Star Member</option>
+                    <option value={4}>4-Star Member</option>
+                    <option value={5}>5-Star Member</option>
+                  </select>
+                </div>
               </div>
               <label className="flex items-center gap-2 cursor-pointer">
                 <input type="checkbox" checked={form.isActive} onChange={(e) => setForm({ ...form, isActive: e.target.checked })}
@@ -158,6 +172,7 @@ export default function AdminUsers() {
                 <th className="px-4 py-3 font-medium">User</th>
                 <th className="px-4 py-3 font-medium">Phone</th>
                 <th className="px-4 py-3 font-medium">Role</th>
+                <th className="px-4 py-3 font-medium">Ranking</th>
                 <th className="px-4 py-3 font-medium">Wallet</th>
                 <th className="px-4 py-3 font-medium">Bonus</th>
                 <th className="px-4 py-3 font-medium">Status</th>
@@ -178,6 +193,16 @@ export default function AdminUsers() {
                   </td>
                   <td className="px-4 py-3 text-gray-600">{u.phone}</td>
                   <td className="px-4 py-3"><Badge variant={u.role === 'admin' ? 'blue' : 'default'}>{u.role}</Badge></td>
+                  <td className="px-4 py-3">
+                    {u.customerRanking > 0 ? (
+                      <div className="flex items-center gap-1 text-gold-600 font-semibold text-xs bg-gold-50 px-2.5 py-1 rounded-full border border-gold-200 w-fit">
+                        <Star size={13} className="fill-gold-400 text-gold-400" />
+                        <span>{u.customerRanking}-Star</span>
+                      </div>
+                    ) : (
+                      <span className="text-xs text-gray-400">No ranking</span>
+                    )}
+                  </td>
                   <td className="px-4 py-3 font-medium text-gray-700">RM{(u.walletBalance ?? 0).toFixed(2)}</td>
                   <td className="px-4 py-3 font-medium text-amber-600">RM{(u.walletBonus ?? 0).toFixed(2)}</td>
                   <td className="px-4 py-3"><Badge variant={u.isActive ? 'success' : 'danger'}>{u.isActive ? 'Active' : 'Banned'}</Badge></td>

@@ -115,7 +115,15 @@ export default function AdminRanking() {
                   <td className="px-4 py-3">
                     {typeof r.userId === 'object' && r.userId ? (
                       <div>
-                        <p className="font-medium text-gray-800">{r.userId.name}</p>
+                        <div className="flex items-center gap-1.5 flex-wrap">
+                          <p className="font-medium text-gray-800">{r.userId.name}</p>
+                          {(r.userId as any).customerRanking > 0 && (
+                            <span className="inline-flex items-center gap-0.5 text-gold-600 font-semibold text-[11px] bg-gold-50 px-2 py-0.5 rounded-full border border-gold-200">
+                              <Star size={11} className="fill-gold-400 text-gold-400" />
+                              <span>{(r.userId as any).customerRanking}-Star</span>
+                            </span>
+                          )}
+                        </div>
                         <p className="text-xs text-gray-400">{r.userId.email}</p>
                       </div>
                     ) : t('common.na')}

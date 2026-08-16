@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Calendar as CalIcon, Clock, Search, Trash2, X, ChevronLeft, ChevronRight, CalendarDays, List, MapPin } from 'lucide-react';
+import { Calendar as CalIcon, Clock, Search, Trash2, X, ChevronLeft, ChevronRight, CalendarDays, List, MapPin, Star } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { bookingAPI } from '../../api';
 import { Spinner, Button, Badge, EmptyState, PromotionIndicator } from '../../components/ui';
@@ -195,82 +195,96 @@ export default function AdminBookings() {
         ) : (
           <div className="bg-white rounded-2xl card-shadow overflow-hidden overflow-x-auto">
             <table className="w-full text-sm">
-            <thead className="bg-gray-50 text-gray-500 text-left">
-              <tr>
-                <th className="px-4 py-3 font-medium">Customer</th>
-                <th className="px-4 py-3 font-medium">Service</th>
-                <th className="px-4 py-3 font-medium">Date & Time</th>
-                <th className="px-4 py-3 font-medium">Price</th>
-                <th className="px-4 py-3 font-medium">Status</th>
-                <th className="px-4 py-3 font-medium">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-100">
-              {bookings.map((b: Booking) => (
-                <tr key={b._id} className="hover:bg-gray-50 cursor-pointer" onClick={() => setSelectedBooking(b)}>
-                  <td className="px-4 py-3">
-                    {typeof b.userId === 'object' && b.userId ? (
-                      <div>
-                        <p className="font-medium text-gray-800">{(b.userId as any).name}</p>
-                        <p className="text-xs text-gray-400">{(b.userId as any).phone}</p>
-                      </div>
-                    ) : 'N/A'}
-                  </td>
-                  <td className="px-4 py-3 text-gray-600">
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <span>{b.serviceName}</span>
-                      {b.bookingType === 'promotion' && <PromotionIndicator />}
-                    </div>
-                  </td>
-                  <td className="px-4 py-3 text-gray-600">{b.bookingDate}<br /><span className="text-xs text-gray-400">{b.bookingTime}</span></td>
-                  <td className="px-4 py-3">{renderPriceCell(b)}</td>
-                  <td className="px-4 py-3">
-                    <Badge variant={statusVariant(b.status)}>{b.status}</Badge>
-                    {b.status === 'Cancelled' && (
-                      <div className="mt-1 text-xs text-gray-400 space-y-0.5 max-w-45">
-                        {b.cancellationReason && <p className="italic">Reason: {b.cancellationReason}</p>}
-                        {b.cancelledBy && typeof b.cancelledBy === 'object' && (
-                          <p>Cancelled by: {b.cancelledBy.name}{b.cancelledByRole ? ` (${b.cancelledByRole})` : ''}</p>
-                        )}
-                      </div>
-                    )}
-                  </td>
-                  <td className="px-4 py-3" onClick={(e) => e.stopPropagation()}>
-                    <div className="flex items-center gap-2">
-                      <select
-                        value={b.status}
-                        onChange={(e) => {
-                          const newStatus = e.target.value;
-                          if (newStatus === 'Cancelled') {
-                            setCancelTarget(b);
-                            setCancelReason('');
-                          } else {
-                            updateStatus.mutate({ id: b._id, status: newStatus });
-                          }
-                        }}
-                        className="px-3 py-1.5 rounded-lg border border-gray-200 text-xs focus:outline-none focus:border-rose-deep"
-                      >
-                        <option value="Pending">Pending</option>
-                        <option value="Confirmed">Confirm</option>
-                        <option value="Completed">Complete</option>
-                        <option value="Cancelled">Cancel</option>
-                      </select>
-                      <button
-                        onClick={() => handleDelete(b)}
-                        disabled={deleteBooking.isPending}
-                        title="Delete booking"
-                        className="w-8 h-8 rounded-lg flex items-center justify-center text-red-400 hover:bg-red-50 disabled:opacity-50"
-                      >
-                        <Trash2 size={16} />
-                      </button>
-                    </div>
-                  </td>
+              <thead className="bg-gray-50 text-gray-500 text-left">
+                <tr>
+                  <th className="px-4 py-3 font-medium">Customer</th>
+                  <th className="px-4 py-3 font-medium">Service</th>
+                  <th className="px-4 py-3 font-medium">Date & Time</th>
+                  <th className="px-4 py-3 font-medium">Price</th>
+                  <th className="px-4 py-3 font-medium">Status</th>
+                  <th className="px-4 py-3 font-medium">Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )
+              </thead>
+              <tbody className="divide-y divide-gray-100">
+                {bookings.map((b: Booking) => (
+                  <tr key={b._id} className="hover:bg-gray-50 cursor-pointer" onClick={() => setSelectedBooking(b)}>
+                    <td className="px-4 py-3">
+                      {typeof b.userId === 'object' && b.userId ? (
+                        <div>
+                          <div className="flex items-center gap-1.5 flex-wrap">
+                            <p className="font-medium text-gray-800">{(b.userId as any).name}</p>
+                            {(b.userId as any).customerRanking > 0 && (
+                              <span className="inline-flex items-center gap-0.5 text-gold-600 font-semibold text-[11px] bg-gold-50 px-2 py-0.5 rounded-full border border-gold-200">
+                                <Star size={11} className="fill-gold-400 text-gold-400" />
+                                <span>{(b.userId as any).customerRanking}-Star</span>
+                              </span>
+                            )}
+                          </div>
+                          <p className="text-xs text-gray-400">{(b.userId as any).phone}</p>
+                        </div>
+                      ) : 'N/A'}
+                    </td>
+                    <td className="px-4 py-3 text-gray-600">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span>{b.serviceName}</span>
+                        {b.bookingType === 'promotion' && <PromotionIndicator />}
+                      </div>
+                    </td>
+                    <td className="px-4 py-3 text-gray-600">{b.bookingDate}<br /><span className="text-xs text-gray-400">{b.bookingTime}</span></td>
+                    <td className="px-4 py-3">{renderPriceCell(b)}</td>
+                    <td className="px-4 py-3">
+                      <Badge variant={statusVariant(b.status)}>{b.status}</Badge>
+                      {b.status === 'Cancelled' && (
+                        <div className="mt-1 text-xs text-gray-400 space-y-0.5 max-w-45">
+                          {b.cancellationReason && <p className="italic">Reason: {b.cancellationReason}</p>}
+                          {b.cancelledBy && typeof b.cancelledBy === 'object' && (
+                            <p>Cancelled by: {b.cancelledBy.name}{b.cancelledByRole ? ` (${b.cancelledByRole})` : ''}</p>
+                          )}
+                        </div>
+                      )}
+                    </td>
+                    <td className="px-4 py-3" onClick={(e) => e.stopPropagation()}>
+                      <div className="flex items-center gap-2">
+                        <select
+                          value={b.status}
+                          disabled={b.status === 'Completed'}
+                          onChange={(e) => {
+                            const newStatus = e.target.value;
+                            if (newStatus === 'Cancelled') {
+                              setCancelTarget(b);
+                              setCancelReason('');
+                            } else {
+                              updateStatus.mutate({ id: b._id, status: newStatus });
+                            }
+                          }}
+                          className={`px-3 py-1.5 rounded-lg border text-xs focus:outline-none focus:border-rose-deep transition-colors ${
+                            b.status === 'Completed'
+                              ? 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed opacity-75'
+                              : 'bg-white text-gray-700 border-gray-200'
+                          }`}
+                          title={b.status === 'Completed' ? 'Completed bookings cannot be modified' : 'Change booking status'}
+                        >
+                          <option value="Pending">Pending</option>
+                          <option value="Confirmed">Confirm</option>
+                          <option value="Completed">Complete</option>
+                          <option value="Cancelled">Cancel</option>
+                        </select>
+                        <button
+                          onClick={() => handleDelete(b)}
+                          disabled={deleteBooking.isPending}
+                          title="Delete booking"
+                          className="w-8 h-8 rounded-lg flex items-center justify-center text-red-400 hover:bg-red-50 disabled:opacity-50"
+                        >
+                          <Trash2 size={16} />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )
       ) : (
         confirmedLoading ? <Spinner className="py-20" /> : (
           <div className="grid lg:grid-cols-3 gap-6">
@@ -314,13 +328,12 @@ export default function AdminBookings() {
                     <button
                       key={i}
                       onClick={() => setSelectedDate(dateStr)}
-                      className={`min-h-20 p-1.5 rounded-lg border text-left transition-all duration-150 ${
-                        isSelected
+                      className={`min-h-20 p-1.5 rounded-lg border text-left transition-all duration-150 ${isSelected
                           ? 'border-rose-deep bg-rose-soft ring-1 ring-rose-deep'
                           : isToday
-                          ? 'border-rose-300 bg-blush-50'
-                          : 'border-gray-100 hover:border-rose-200 hover:bg-blush-50'
-                      } ${isPast && !isToday ? 'opacity-60' : ''}`}
+                            ? 'border-rose-300 bg-blush-50'
+                            : 'border-gray-100 hover:border-rose-200 hover:bg-blush-50'
+                        } ${isPast && !isToday ? 'opacity-60' : ''}`}
                     >
                       <div className="flex items-center justify-between">
                         <span className={`text-xs ${isToday ? 'font-bold text-rose-deep' : 'text-gray-500'}`}>{day}</span>
@@ -495,6 +508,17 @@ export default function AdminBookings() {
                       <p className="text-xs text-gray-400">Phone</p>
                       <p className="text-gray-700">{(selectedBooking.userId as any).phone || '-'}</p>
                     </div>
+                    <div>
+                      <p className="text-xs text-gray-400">Star Ranking</p>
+                      {(selectedBooking.userId as any).customerRanking > 0 ? (
+                        <p className="text-gold-600 font-semibold flex items-center gap-1">
+                          <Star size={13} className="fill-gold-400 text-gold-400" />
+                          {(selectedBooking.userId as any).customerRanking}-Star Member
+                        </p>
+                      ) : (
+                        <p className="text-gray-500">No Ranking</p>
+                      )}
+                    </div>
                   </div>
                 ) : (
                   <p className="text-sm text-gray-500">N/A</p>
@@ -568,10 +592,10 @@ export default function AdminBookings() {
                     <p className="text-xs text-gray-400">Payment Method</p>
                     <p className="text-gray-700">
                       {selectedBooking.paymentMethod === 'split'
-                        ? 'Wallet (Split)'
+                        ? 'Balance + YBcoin'
                         : selectedBooking.paymentMethod === 'wallet'
-                        ? 'Wallet'
-                        : 'Pay on Arrival'}
+                          ? 'Wallet'
+                          : 'Pay on Arrival'}
                     </p>
                   </div>
                   {selectedBooking.paymentMethod && selectedBooking.paymentMethod !== 'cash' && (
@@ -640,6 +664,7 @@ export default function AdminBookings() {
                 <span className="text-xs text-gray-400">Update status:</span>
                 <select
                   value={selectedBooking.status}
+                  disabled={selectedBooking.status === 'Completed'}
                   onChange={(e) => {
                     const newStatus = e.target.value;
                     if (newStatus === 'Cancelled') {
@@ -649,7 +674,12 @@ export default function AdminBookings() {
                       updateStatus.mutate({ id: selectedBooking._id, status: newStatus });
                     }
                   }}
-                  className="px-3 py-1.5 rounded-lg border border-gray-200 text-xs focus:outline-none focus:border-rose-deep"
+                  className={`px-3 py-1.5 rounded-lg border text-xs focus:outline-none focus:border-rose-deep transition-colors ${
+                    selectedBooking.status === 'Completed'
+                      ? 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed opacity-75'
+                      : 'bg-white text-gray-700 border-gray-200'
+                  }`}
+                  title={selectedBooking.status === 'Completed' ? 'Completed bookings cannot be modified' : 'Change booking status'}
                 >
                   <option value="Pending">Pending</option>
                   <option value="Confirmed">Confirm</option>

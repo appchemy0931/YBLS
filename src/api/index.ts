@@ -13,6 +13,7 @@ import type {
   RankingTier,
   RankingPurchase,
   Testimonial,
+  ReceiptData,
 } from '../types';
 
 export const uploadAPI = {
@@ -102,6 +103,7 @@ export const walletAPI = {
   getBalance: () => api.get<{ walletBalance: number; walletBonus: number }>('/wallet/balance'),
   topUp: (data: { amount: number; method?: string }) => api.post('/wallet/topup', data),
   getHistory: (type?: string) => api.get<{ transactions: WalletTransaction[] }>('/wallet/history', { params: { type } }),
+  getReceipt: (id: string) => api.get<{ success: boolean; receipt: ReceiptData }>(`/wallet/receipt/${id}`),
   getAllTransactions: (params: { type?: string; from?: string; to?: string } = {}) =>
     api.get<{ transactions: WalletTransaction[] }>('/wallet/transactions', { params }),
   deleteTransactions: (ids: string[]) =>

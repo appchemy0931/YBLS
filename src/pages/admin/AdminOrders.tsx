@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { ShoppingBag, Search, X, Edit, Trash2 } from 'lucide-react';
+import { ShoppingBag, Search, X, Edit, Trash2, Star } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { orderAPI } from '../../api';
 import { Spinner, Button, Badge, EmptyState } from '../../components/ui';
@@ -186,7 +186,15 @@ export default function AdminOrders() {
                   <td className="px-4 py-3">
                     {typeof o.userId === 'object' && o.userId ? (
                       <div>
-                        <p className="font-medium text-gray-800">{(o.userId as any).name}</p>
+                        <div className="flex items-center gap-1.5 flex-wrap">
+                          <p className="font-medium text-gray-800">{(o.userId as any).name}</p>
+                          {(o.userId as any).customerRanking > 0 && (
+                            <span className="inline-flex items-center gap-0.5 text-gold-600 font-semibold text-[11px] bg-gold-50 px-2 py-0.5 rounded-full border border-gold-200">
+                              <Star size={11} className="fill-gold-400 text-gold-400" />
+                              <span>{(o.userId as any).customerRanking}-Star</span>
+                            </span>
+                          )}
+                        </div>
                         <p className="text-xs text-gray-400">{(o.userId as any).email}</p>
                       </div>
                     ) : 'N/A'}
@@ -430,7 +438,7 @@ export default function AdminOrders() {
                     <div className="grid grid-cols-2 gap-4 text-sm">
                       <div>
                         <p className="text-xs text-gray-400">Name</p>
-                        <p className="text-gray-700">{(selectedOrder.userId as any).name}</p>
+                        <p className="text-gray-700 font-medium">{(selectedOrder.userId as any).name}</p>
                       </div>
                       <div>
                         <p className="text-xs text-gray-400">User ID</p>
@@ -443,6 +451,17 @@ export default function AdminOrders() {
                       <div>
                         <p className="text-xs text-gray-400">Phone</p>
                         <p className="text-gray-700">{(selectedOrder.userId as any).phone || '-'}</p>
+                      </div>
+                      <div>
+                        <p className="text-xs text-gray-400">Star Ranking</p>
+                        {(selectedOrder.userId as any).customerRanking > 0 ? (
+                          <p className="text-gold-600 font-semibold flex items-center gap-1">
+                            <Star size={13} className="fill-gold-400 text-gold-400" />
+                            {(selectedOrder.userId as any).customerRanking}-Star Member
+                          </p>
+                        ) : (
+                          <p className="text-gray-500">No Ranking</p>
+                        )}
                       </div>
                     </div>
                   ) : (

@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Wallet as WalletIcon, TrendingUp, TrendingDown, Crown, Star, X } from 'lucide-react';
+import { Wallet as WalletIcon, TrendingUp, TrendingDown, Crown, Star, X, Receipt } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { walletAPI, rankingAPI } from '../api';
 import { useAuth } from '../context/AuthContext';
 import { Spinner, Button, EmptyState, Badge } from '../components/ui';
 import ConfirmModal from '../components/ConfirmModal';
+import OfficialReceiptModal from '../components/OfficialReceiptModal';
 import type { WalletTransaction, RankingTier } from '../types';
 
 export default function Wallet() {
@@ -15,6 +16,7 @@ export default function Wallet() {
   const [filter, setFilter] = useState('All');
   const [showRankingModal, setShowRankingModal] = useState(false);
   const [confirmTier, setConfirmTier] = useState<RankingTier | null>(null);
+  const [selectedReceiptTx, setSelectedReceiptTx] = useState<WalletTransaction | null>(null);
   const { t } = useTranslation();
   const typeLabels: Record<string, string> = {
     TOPUP: t('wallet.topup'),
@@ -131,23 +133,55 @@ export default function Wallet() {
           <EmptyState icon={WalletIcon} title={t('wallet.noTransactions')} message={t('wallet.noTransactionsMsg')} />
         ) : (
           <div className="space-y-2">
-            {transactions.map((tx: WalletTransaction) => (
-              <div key={tx._id} className="flex items-center gap-4 p-3 rounded-xl hover:bg-blush-50 transition-colors">
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center ${tx.amount > 0 ? 'bg-green-100' : 'bg-red-100'}`}>
-                  {tx.amount > 0 ? <TrendingUp size={18} className="text-green-600" /> : <TrendingDown size={18} className="text-red-500" />}
+            {transactions.map((tx: WalletTransaction) => {
+              const hasReceipt = tx.type === 'BOOKING_PAYMENT' || tx.type === 'PRODUCT_PAYMENT';
+              return (
+                <div
+                  key={tx._id}
+                  onClick={() => hasReceipt && setSelectedReceiptTx(tx)}
+                  className={`flex items-center gap-4 p-3 rounded-xl transition-all ${
+                    hasReceipt
+                      ? 'cursor-pointer hover:bg-amber-50/60 hover:shadow-xs border border-transparent hover:border-amber-200/70 group'
+                      : 'hover:bg-blush-50'
+                  }`}
+                >
+                  <div
+                    className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${
+                      hasReceipt
+                        ? 'bg-amber-100/80 text-amber-700 group-hover:scale-105 transition-transform'
+                        : tx.amount > 0
+                        ? 'bg-green-100'
+                        : 'bg-red-100'
+                    }`}
+                  >
+                    {hasReceipt ? (
+                      <Receipt size={18} className="text-amber-700" />
+                    ) : tx.amount > 0 ? (
+                      <TrendingUp size={18} className="text-green-600" />
+                    ) : (
+                      <TrendingDown size={18} className="text-red-500" />
+                    )}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2">
+                      <p className="font-medium text-gray-800 text-sm">{typeLabels[tx.type] || tx.type}</p>
+                      {hasReceipt && (
+                        <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-amber-700 bg-amber-100/70 group-hover:bg-amber-200/90 px-1.5 py-0.5 rounded transition-colors shrink-0">
+                          <Receipt size={11} /> {t('wallet.viewReceipt', 'Official Receipt')}
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-xs text-gray-400 truncate mt-0.5">{tx.description}</p>
+                  </div>
+                  <div className="text-right shrink-0">
+                    <p className={`font-bold text-sm ${tx.amount > 0 ? 'text-green-600' : 'text-red-500'}`}>
+                      {tx.amount > 0 ? '+' : ''}{['SIGNUP_BONUS', 'RANKING_BONUS', 'REFERRAL_BONUS'].includes(tx.type) ? '' : 'RM'}{tx.amount.toFixed(2)}
+                    </p>
+                    {tx.balanceAfter !== undefined && <p className="text-xs text-gray-400">{t('wallet.bal', { amount: tx.balanceAfter.toFixed(2) })}</p>}
+                  </div>
                 </div>
-                <div className="flex-1 min-w-0">
-                  <p className="font-medium text-gray-800 text-sm">{typeLabels[tx.type] || tx.type}</p>
-                  <p className="text-xs text-gray-400 truncate">{tx.description}</p>
-                </div>
-                <div className="text-right">
-                  <p className={`font-bold text-sm ${tx.amount > 0 ? 'text-green-600' : 'text-red-500'}`}>
-                    {tx.amount > 0 ? '+' : ''}{['SIGNUP_BONUS', 'RANKING_BONUS', 'REFERRAL_BONUS'].includes(tx.type) ? '' : 'RM'}{tx.amount.toFixed(2)}
-                  </p>
-                  {tx.balanceAfter !== undefined && <p className="text-xs text-gray-400">{t('wallet.bal', { amount: tx.balanceAfter.toFixed(2) })}</p>}
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         )}
       </div>
@@ -269,6 +303,13 @@ export default function Wallet() {
             : []
         }
       />
+
+      {selectedReceiptTx && (
+        <OfficialReceiptModal
+          transaction={selectedReceiptTx}
+          onClose={() => setSelectedReceiptTx(null)}
+        />
+      )}
     </div>
   );
 }

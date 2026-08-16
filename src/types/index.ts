@@ -116,12 +116,74 @@ export interface Coupon {
 
 export interface WalletTransaction {
   _id: string;
-  userId: string;
+  userId: string | { _id: string; name: string; userId: string; customerRanking?: number; walletBalance?: number; walletBonus?: number; email?: string; phone?: string };
   type: 'TOPUP' | 'BOOKING_PAYMENT' | 'PRODUCT_PAYMENT' | 'REFUND' | 'REFERRAL_BONUS' | 'COUPON_PURCHASE' | 'RANKING_PURCHASE' | 'RANKING_BONUS' | 'SIGNUP_BONUS';
   amount: number;
   description: string;
   balanceAfter?: number;
+  walletBalanceAfter?: number;
+  walletBonusAfter?: number;
+  paidFromBalance?: number;
+  paidFromBonus?: number;
+  referenceId?: string | any;
+  referenceModel?: 'Booking' | 'Order' | 'RankingPurchase' | null;
   date: string;
+}
+
+export interface ReceiptItem {
+  code: string;
+  name: string;
+  detail: string;
+  qty: number;
+  unitPrice: number;
+  price: number;
+}
+
+export interface ReceiptMerchant {
+  name: string;
+  branch: string;
+  cafeName?: string;
+  shopName?: string;
+  regNo: string;
+  address: string;
+  phone: string;
+  email: string;
+}
+
+export interface ReceiptCustomer {
+  name: string;
+  userId: string;
+  phone: string;
+  ranking: number;
+}
+
+export interface ReceiptSummary {
+  totalQty: number;
+  subtotal: number;
+  discount: number;
+  serviceCharge: number;
+  rounding: number;
+  total: number;
+  paidBalance: number;
+  paidBonus: number;
+  paymentMethod: string;
+  change: number;
+}
+
+export interface ReceiptData {
+  _id: string;
+  type: string;
+  invoiceNo: string;
+  orderNo: string;
+  date: string;
+  formattedDate: string;
+  cashier?: string;
+  tablePax?: string;
+  merchant: ReceiptMerchant;
+  customer: ReceiptCustomer;
+  items: ReceiptItem[];
+  summary: ReceiptSummary;
+  qrCode?: string;
 }
 
 export interface Referral {
@@ -144,6 +206,7 @@ export interface RankingTier {
   stars: number;
   price: number;
   name: string;
+  discount: number;
 }
 
 export interface RankingPurchase {
